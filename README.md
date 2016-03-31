@@ -3,4 +3,6 @@
 
 Team Members: Aadish, Pallavi, Yogitha
 
-Currently working on Requirement analysis and UML diagrams
+Finished Requirement analysis and UML diagrams
+
+Currently working on the implementation of the project
