@@ -55,10 +55,12 @@ DROP TABLE IF EXISTS `event`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `event` (
   `eventId` int(11) NOT NULL AUTO_INCREMENT,
-  `description` varchar(100) NOT NULL,
-  `datetime` datetime NOT NULL,
-  `venue` varchar(80) NOT NULL,
-  `link` varchar(100) DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` varchar(10000) NOT NULL,
+  `startDate` datetime NOT NULL,
+  `endDate` datetime NOT NULL,
+  `location` varchar(100) NOT NULL,
+  `link` varchar(1000) NOT NULL,
   `image` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`eventId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

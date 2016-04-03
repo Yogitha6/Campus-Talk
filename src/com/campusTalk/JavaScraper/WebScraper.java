@@ -4,16 +4,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import com.campusTalk.Beans.Event;
+import com.campusTalk.Utilities.DBHelper;
 
 import java.net.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.*;
-
-// This Website Scraper code is written in Java to scrape the current day's event information from events.colorado.edu using JSoup library
-
 public class WebScraper {
 	
 	List<Event> events;
@@ -23,12 +22,11 @@ public class WebScraper {
 		events = new ArrayList<Event>();
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws ParseException{
 		WebScraper ws = new WebScraper();
 		ws.scrapeTopic("http://events.colorado.edu/EventListSyndicator.aspx");
 		for(Event e: ws.events)
 		{
-			//Printing all the event details
 			System.out.println(e.getEventName());
 			System.out.println(e.getEventDescription());
 			System.out.println(e.getEventLink());
@@ -36,7 +34,7 @@ public class WebScraper {
 			System.out.println(e.getEventEndDate());
 			System.out.println(e.getEventLocation());
 			System.out.println("----------------------------------------------");
-			// code for calling a dbhelper method to insert data into DB is required
+			DBHelper.addEventDetails(e);
 		}
 	}
 	public void scrapeTopic(String url){
