@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+ <hibernate-mapping>
+ 	<class name="model.Forum" table="forum">
+ 	<id name="forumId" column="forumId" type="int">
+ 		<generator class="native"/>
+ 	</id>
+ 	<property name="description" column="description" type="string"></property>
+ 	<property name="createdBy" column="createdBy" type="int"></property>
+ 	<property name="createdDate" column="createdDate" type="date"></property>
+ 	<property name="topicId" type="int" column="topicId"></property>
+ 	</class>
+ </hibernate-mapping>
