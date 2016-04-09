@@ -14,6 +14,6 @@ public interface DbProxyInterface {
 	public List<Reply> getRepliesToPost(int postId);
 	public void saveSubscription(Subscription subscription);
 	public void deleteSubscription(int userId, int forumId);
-	
+	public void saveEventDetails(Event event);	
 	
 }

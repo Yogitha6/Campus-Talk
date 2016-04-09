@@ -3,11 +3,14 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import com.campusTalk.database.DbProxy;
 import com.campusTalk.model.Event;
 
 import java.net.*;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,6 +18,7 @@ import java.io.*;
 public class WebScraper {
 	
 	List<Event> events;
+	DbProxy db = new DbProxy();
 	
 	public WebScraper()
 	{
@@ -26,14 +30,14 @@ public class WebScraper {
 		ws.scrapeTopic("http://events.colorado.edu/EventListSyndicator.aspx");
 		for(Event e: ws.events)
 		{
-			System.out.println(e.getEventName());
+			/*System.out.println(e.getEventName());
 			System.out.println(e.getEventDescription());
 			System.out.println(e.getEventLink());
 			System.out.println(e.getEventStartDate());
 			System.out.println(e.getEventEndDate());
 			System.out.println(e.getEventLocation());
-			System.out.println("----------------------------------------------");
-			//DBHelper.addEventDetails(e);
+			System.out.println("----------------------------------------------");*/
+			ws.db.saveEventDetails(e);
 		}
 	}
 	public void scrapeTopic(String url){
@@ -68,16 +72,23 @@ public class WebScraper {
 		String dateValue;
 		Matcher match = Pattern.compile("([0-9])+/([0-9])+/([0-9]){4}").matcher(temporaryTableData);
 		int count = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		Date convertedDate = new Date();
 		while(match.find())
 		{
 			dateValue = match.group();
-			
-			if(count == 0)
-				e.setEventStartDate(dateValue);
-			else if(count == 1)
-				e.setEventEndDate(dateValue);
-			else
-				break;
+			try {
+				convertedDate = sdf.parse(dateValue);
+				if(count == 0)
+					e.setEventStartDate(convertedDate);
+				else if(count == 1)
+					e.setEventEndDate(convertedDate);
+				else
+					break;
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			count = count + 1;
 		}
 		

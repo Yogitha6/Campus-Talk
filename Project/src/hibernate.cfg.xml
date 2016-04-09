@@ -4,17 +4,21 @@
 
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<!--  Database connection settings -->
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/campusTalk</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">root</property>
+		
+		<!-- SQL dialect -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		
 		<!-- Mapping File -->
 		<mapping resource="Forum.hbm.xml"/>
 		<mapping resource="Post.hbm.xml"/>
 		<mapping resource="Reply.hbm.xml"/>
 		<mapping resource="Subscription.hbm.xml"/>
-		<mapping resource="Student.hbm.xml"/>
+		<mapping class="com.campusTalk.model.Event"/>
+	
 	</session-factory>
 </hibernate-configuration>

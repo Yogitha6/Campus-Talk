@@ -4,7 +4,7 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
  
  <hibernate-mapping> 	
- 	 <class name="model.Reply" table="reply">
+ 	 <class name="com.campusTalk.model.Reply" table="reply">
  	<id name="replyId" column="replyId" type="int">
  		<generator class="native"/>
  	</id>

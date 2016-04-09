@@ -4,7 +4,7 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
  
  <hibernate-mapping>
- 	<class name="model.Forum" table="forum">
+ 	<class name="com.campusTalk.model.Forum" table="forum">
  	<id name="forumId" column="forumId" type="int">
  		<generator class="native"/>
  	</id>

@@ -4,7 +4,7 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
  
  <hibernate-mapping>
-  	 <class name="model.Subscription" table="subscription">
+  	 <class name="com.campusTalk.model.Subscription" table="subscription">
  	<id name="subscriptionId" column="subscriptionId" type="int">
  		<generator class="native"/>
  	</id>

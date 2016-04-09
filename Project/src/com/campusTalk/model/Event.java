@@ -1,13 +1,52 @@
 package com.campusTalk.model;
 
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name="EVENT")
 public class Event {
 
+	// Using Hibernate annotations to do the mapping between the object and the database columns
+	@Id //primary key and setting auto generation using hibernate
+	@Column(name="eventId", nullable=false)
+	private int eventId;
+	
+	@Column(name="description", nullable=false)
 	private String eventDescription;
+	
+	@Column(name="name", nullable=false)
 	private String eventName;
-	private String eventStartDate;
-	private String eventEndDate;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="startDate", nullable=false)
+	private Date eventStartDate;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="endDate", nullable=false)
+	private Date eventEndDate;
+	
+	@Column(name="location", nullable=false)
 	private String eventLocation;
+	
+	@Column(name="link", nullable=false)
 	private String eventLink;
+	
+	public int getEventId() {
+		return eventId;
+	}
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
+	}
 	
 	public String getEventDescription() {
 		return eventDescription;
@@ -21,16 +60,16 @@ public class Event {
 	public void setEventName(String eventName) {
 		this.eventName = eventName;
 	}
-	public String getEventStartDate() {
+	public Date getEventStartDate() {
 		return eventStartDate;
 	}
-	public void setEventStartDate(String date) {
+	public void setEventStartDate(Date date) {
 		this.eventStartDate = date;
 	}
-	public String getEventEndDate() {
+	public Date getEventEndDate() {
 		return eventEndDate;
 	}
-	public void setEventEndDate(String eventEndDate) {
+	public void setEventEndDate(Date eventEndDate) {
 		this.eventEndDate = eventEndDate;
 	}
 	public String getEventLocation() {

@@ -8,16 +8,14 @@ public class DbProxy implements DbProxyInterface {
 	
 	private DbHelper dbhelper = null;
 	public DbProxy(){
-		System.out.println("11");
 		this.getInstance();
 	};
 
+	// Singleton implementation
 	public void getInstance(){
 		if(this.dbhelper == null){
-			System.out.println("22");
 			this.dbhelper = new DbHelper();
 		}
-		System.out.println("33");
 	}
 	
 	@Override
@@ -70,4 +68,9 @@ public class DbProxy implements DbProxyInterface {
 		this.dbhelper.deleteSubscription(userId, forumId);
 	}
 
+	@Override
+	public void saveEventDetails(Event event) {
+		// TODO Auto-generated method stub
+		this.dbhelper.saveEventDetails(event);
+	}
 }

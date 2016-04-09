@@ -4,7 +4,7 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
  
  <hibernate-mapping>
-	 <class name="model.Post" table="post">
+	 <class name="com.campusTalk.model.Post" table="post">
  	<id name="postId" column="postId" type="int">
  		<generator class="native"/>
  	</id>

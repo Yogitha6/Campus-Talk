@@ -8,6 +8,7 @@ import com.campusTalk.model.*;
 
 public class DbHelper implements DbProxyInterface {
 
+	//sessionFactory object contains all the data of Hibernate config file 
 	public SessionFactory sessionFactory;
 	
 	public DbHelper(){
@@ -17,7 +18,6 @@ public class DbHelper implements DbProxyInterface {
 	public void initializeSessionFactory(){
 		try{
 			if(this.sessionFactory == null){
-				System.out.println("Session Factory is null");
 				this.sessionFactory = new Configuration().configure().buildSessionFactory();
 			}
 		}catch(Throwable e){
@@ -26,6 +26,38 @@ public class DbHelper implements DbProxyInterface {
 		}
 	}
 	
+
+	@Override
+	public void saveEventDetails(Event event) {
+		// TODO Auto-generated method stub
+		
+		// Opening a session to create a database connection
+		Session session = this.sessionFactory.openSession();
+		
+		// for CRUD operations, we need to create a transaction
+		Transaction tx = null;
+		
+		// adding a try catch block for maintaining the atomicity of transaction
+		try{
+			tx = session.beginTransaction();
+			System.out.println("DbHelper..saveEventDetails");
+			
+			//session save inserts the object into DB
+			session.save(event);
+			
+			tx.commit();
+			System.out.println("Event saved");
+		}
+		catch(HibernateException e){
+			if(tx != null){
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}finally {
+			session.close();
+		}
+	}
+
 	@Override
 	public void saveForumDetails(Forum forum) {
 		// TODO Auto-generated method stub
@@ -204,5 +236,4 @@ public class DbHelper implements DbProxyInterface {
 			session.close();
 		}
 	}
-
 }
