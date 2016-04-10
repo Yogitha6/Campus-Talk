@@ -21,7 +21,6 @@ public class DbProxy implements DbProxyInterface {
 	@Override
 	public void saveForumDetails(Forum forum) {
 		// TODO Auto-generated method stub
-		System.out.println(this.dbhelper);
 		this.dbhelper.saveForumDetails(forum);
 	}
 
@@ -34,7 +33,6 @@ public class DbProxy implements DbProxyInterface {
 	@Override
 	public void savePostDetails(Post post) {
 		// TODO Auto-generated method stub
-		System.out.println(this.dbhelper);
 		this.dbhelper.savePostDetails(post);
 	}
 
@@ -72,5 +70,11 @@ public class DbProxy implements DbProxyInterface {
 	public void saveEventDetails(Event event) {
 		// TODO Auto-generated method stub
 		this.dbhelper.saveEventDetails(event);
+	}
+
+	public String getPassword(String emailId) {
+		// TODO Auto-generated method stub
+		String password =  this.dbhelper.getUserPassword(emailId);
+		return password;
 	}
 }

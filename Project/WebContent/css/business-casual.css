@@ -21,7 +21,7 @@ h5,
 h6 {
     text-transform: uppercase;
     font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 1px;
 }
 
@@ -43,13 +43,13 @@ hr {
 
 .navbar-brand {
     text-transform: uppercase;
-    font-weight: 900;
+    font-weight: 600;
     letter-spacing: 2px;
 }
 
 .navbar-nav {
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 300;
     letter-spacing: 3px;
 }
 
@@ -63,23 +63,23 @@ hr {
 }
 
 .brand-before {
-    margin: 15px 0;
+    margin: 1px 0;
 }
 
 .brand-name {
     margin: 0;
-    font-size: 4em;
+    font-size: 2em;
 }
 
 .tagline-divider {
-    margin: 15px auto 3px;
-    max-width: 250px;
+    margin: 1px auto 1px;
+    max-width: 20px;
     border-color: #999999;
 }
 
 .box {
-    margin-bottom: 20px;
-    padding: 30px 15px;
+    margin-bottom: 5px;
+    padding: 10px 5px;
     background: #fff;
     background: rgba(255,255,255,0.9);
 }
@@ -109,7 +109,7 @@ footer {
 
 footer p {
     margin: 0;
-    padding: 50px 0;
+    padding: 2px 0;
 }
 
 @media screen and (min-width:768px) {
@@ -138,12 +138,12 @@ footer p {
     .address-bar {
         display: inherit;
         margin: 0;
-        padding: 0 0 40px;
+        padding: 0 0 20px;
         text-align: center;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         text-transform: uppercase;
-        font-size: 1.25em;
-        font-weight: 400;
+        font-size: 1em;
+        font-weight: 200;
         letter-spacing: 3px;
         color: #fff;
     }
@@ -183,7 +183,7 @@ footer p {
     }
 }
 
-@media screen and (min-width:1200px) {
+@media screen and (min-width:200px) {
     .box:after {
         content: '';
         display: table;

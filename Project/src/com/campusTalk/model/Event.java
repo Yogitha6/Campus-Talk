@@ -5,8 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,8 +15,7 @@ import javax.persistence.TemporalType;
 public class Event {
 
 	// Using Hibernate annotations to do the mapping between the object and the database columns
-	@Id //primary key and setting auto generation using hibernate
-	@Column(name="eventId", nullable=false)
+	@Id @Column(name="eventId", nullable=false)//primary key 
 	private int eventId;
 	
 	@Column(name="description", nullable=false)

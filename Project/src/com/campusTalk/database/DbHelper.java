@@ -5,6 +5,7 @@ import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 
 import com.campusTalk.model.*;
+import com.campusTalk.model.User;
 
 public class DbHelper implements DbProxyInterface {
 
@@ -235,5 +236,29 @@ public class DbHelper implements DbProxyInterface {
 		}finally {
 			session.close();
 		}
+	}
+
+	public String getUserPassword(String emailId) {
+		// TODO Auto-generated method stub
+		String password = "";
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Query query = session.createQuery("from User where emailId = :emailId");
+			query.setString("emailId", emailId);
+			User user = (User) query.uniqueResult();
+			password = user.getPassword();
+			//System.out.println("password from DB is "+password);
+		}catch(HibernateException e){
+			if(tx != null){
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}finally {
+			session.close();
+		}	
+		
+		return password;
 	}
 }

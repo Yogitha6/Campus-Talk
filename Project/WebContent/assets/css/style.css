@@ -1,4 +1,10 @@
+input:invalid{
+	border: 1px solid blue;
+}
 
+input:valid{
+	border: 1px solid green;
+}
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
@@ -104,7 +110,7 @@ img { max-width: 100%; }
 .top-content .description a:focus { border-bottom: 1px dotted #fff; }
 
 .form-box {
-	margin-top: 70px;
+	margin-top: 1px;
 }
 
 .form-top {
@@ -118,7 +124,7 @@ img { max-width: 100%; }
 .form-top-left {
 	float: left;
 	width: 75%;
-	padding-top: 25px;
+	padding-top: 20px;
 }
 
 .form-top-left h3 { margin-top: 0; }
@@ -134,7 +140,7 @@ img { max-width: 100%; }
 }
 
 .form-bottom {
-	padding: 25px 25px 30px 25px;
+	padding: 20px 20px 20px 20px;
 	background: #eee;
 	-moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px;
 	text-align: left;
@@ -166,7 +172,7 @@ img { max-width: 100%; }
 
 .middle-border {
 	min-height: 300px;
-	margin-top: 170px;
+	margin-top: 40px;
 	border-right: 1px solid #fff;
 	border-right: 1px solid rgba(255, 255, 255, 0.6);
 }
@@ -175,14 +181,14 @@ img { max-width: 100%; }
 /***** Footer *****/
 
 footer {
-	padding-bottom: 70px;
+	padding-bottom: 1px;
 	color: #fff;
 }
 
 footer .footer-border {
-	width: 200px;
+	width: 2px;
 	margin: 0 auto;
-	padding-bottom: 30px;
+	padding-bottom: 2px;
 	border-top: 1px solid #fff;
 	border-top: 1px solid rgba(255, 255, 255, 0.6);
 }

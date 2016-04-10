@@ -19,6 +19,7 @@
 		<mapping resource="Reply.hbm.xml"/>
 		<mapping resource="Subscription.hbm.xml"/>
 		<mapping class="com.campusTalk.model.Event"/>
+		<mapping class="com.campusTalk.model.User"/>
 	
 	</session-factory>
 </hibernate-configuration>
