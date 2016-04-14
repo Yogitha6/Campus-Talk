@@ -65,7 +65,13 @@ public class DbProxy implements DbProxyInterface {
 		// TODO Auto-generated method stub
 		this.dbhelper.deleteSubscription(userId, forumId);
 	}
-
+	
+	@Override
+	public int getCountOfSubscribers(int forumId) {
+		// TODO Auto-generated method stub
+		return this.dbhelper.getCountOfSubscribers(forumId);
+	}
+	
 	@Override
 	public void saveEventDetails(Event event) {
 		// TODO Auto-generated method stub

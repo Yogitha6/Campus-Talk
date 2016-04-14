@@ -1,8 +1,12 @@
 package com.campusTalk.database;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 import com.campusTalk.model.*;
 import com.campusTalk.model.User;
@@ -124,10 +128,13 @@ public class DbHelper implements DbProxyInterface {
 			System.out.println("Query--"+query);
 			postArr = query.list();
 			System.out.println("No of rows retrieved.."+postArr.size());
+			System.out.println("Todays Date - "+new Date());
 			for(Post post : postArr){
 				System.out.println("Post - id----"+post.getPostId());
 				System.out.println("Post - Description----"+post.getDescription());
 				System.out.println("Post - Forum id----"+post.getForumId());
+				System.out.println("Post Created Date---"+post.getCreatedDate());
+				System.out.println("No of days.."+getNoOfDays(post.getCreatedDate()));
 			}
 		}catch(HibernateException e){
 			if(tx != null){
@@ -195,7 +202,7 @@ public class DbHelper implements DbProxyInterface {
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			session.save(subscription);
+			session.saveOrUpdate(subscription);
 			tx.commit();
 			System.out.println("Subscription Committed..");
 		}catch(HibernateException e){
@@ -237,7 +244,31 @@ public class DbHelper implements DbProxyInterface {
 			session.close();
 		}
 	}
-
+	
+	public int getCountOfSubscribers(int forumId) {
+		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = null;
+		int countOfSubscribers = 0;
+		try{
+			tx = session.beginTransaction();
+			System.out.println("DbHelper - getCountOfSubscribers..");
+			Query query = session.createQuery("select count(*) from Subscription where forumId = :forumId");
+			query.setParameter("forumId", forumId);
+			Long count = (Long)query.uniqueResult();
+			countOfSubscribers = count.intValue();
+			System.out.println("No of subscribers.."+countOfSubscribers);
+		}catch(HibernateException e){
+			if(tx != null){
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}finally {
+			session.close();
+		}
+		return countOfSubscribers;
+	}
+	
 	public String getUserPassword(String emailId) {
 		// TODO Auto-generated method stub
 		String password = "";
@@ -260,5 +291,21 @@ public class DbHelper implements DbProxyInterface {
 		}	
 		
 		return password;
+	}
+	
+	public int getNoOfDays(Date createdDate){
+		int days = 0;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate = new Date();
+		Date today = Calendar.getInstance().getTime();
+		try{
+			startDate = formatter.parse(createdDate.toString());
+		}
+		catch(ParseException e)    {
+		    System.out.println("Parser Exception");
+		}
+		days = Days.daysBetween(new DateTime(startDate), new DateTime(today)).getDays();
+		//System.out.println(" Days Between " + startDate + " : " + today + " - " + days);
+		return days;
 	}
 }
