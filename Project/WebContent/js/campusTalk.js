@@ -1,6 +1,6 @@
 //Script for the application
 
-// Login Validation
+//Login Validation
 function login()
 {			
 	var username = new String(document.getElementById("form-username").value); // $("#id").val()
@@ -8,16 +8,25 @@ function login()
 	var emailRegExp = /^([a-zA-Z0-9._`-]{4})+@colorado.edu$/;
 	var passwordRegExp = /^[a-zA-Z0-9._`-]{4,}$/;
 	//validating username and password
-
-	$.ajax({
-		url : "/CampusTalk/rest/CampusTalkAPI/login",
-		datatype:'json',
-		type: "post",
-		contentType: "application/json",
-		data: JSON.stringify({name: username, pwd: password}),
-	}).done(function(data){
-		console.log("login credentials have been sent for authorization")});
-
+	if(username.match(emailRegExp)==null)
+	{
+		alert("You can Login only with your colorado.edu email Id");
+	}
+	else if(password.match(passwordRegExp)==null)
+	{
+		alert("Invalid password");
+	}
+	else
+	{
+		$.ajax({
+			url : "/CampusTalk/rest/Login/post",
+			datatype:'json',
+			type: "post",
+			contentType: "application/json",
+			data: JSON.stringify({name: username, pwd: password}),
+		}).done(function(data){
+			console.log("login credentials have been sent for authorization")});
+	}
 }
 
 //Create forum
@@ -65,7 +74,7 @@ function unsubscribe()
 	}
 }
 
-// Subscribe to a forum
+//Subscribe to a forum
 function subscribe()
 {			
 	var userId = 100; // get from session
@@ -85,7 +94,7 @@ function subscribe()
 	}
 }
 
-// Create Post
+//Create Post
 function createPost()
 {			
 	var userId = 100; // get from session
@@ -107,7 +116,7 @@ function createPost()
 	}
 }
 
-// Create Reply
+//Create Reply
 function createReply()
 {			
 	var userId = 100; // get from session
