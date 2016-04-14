@@ -31,35 +31,7 @@
         <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"> </script> 
-		<script>
-		function login()
-		{			
-			var username = new String(document.getElementById("form-username").value); // $("#id").val()
-			var password = new String(document.getElementById("form-password").value);
-			var emailRegExp = /^([a-zA-Z0-9._`-]{4})+@colorado.edu$/;
-			var passwordRegExp = /^[a-zA-Z0-9._`-]{4,}$/;
-			//validating username and password
-			if(username.match(emailRegExp)==null)
-				{
-				 alert("You can Login only with your colorado.edu email Id");
-				}
-			else if(password.match(passwordRegExp)==null)
-				{
-				 alert("Invalid password");
-				}
-			else
-				{
-				$.ajax({
-				    url : "/CampusTalk/rest/Login/post",
-				    datatype:'json',
-				    type: "post",
-				    contentType: "application/json",
-				    data: JSON.stringify({name: username, pwd: password}),
-					}).done(function(data){
-					console.log("login credentials have been sent for authorization")});
-				}
-		}
-		</script>
+        	<script src="js/campusTalk.js"></script>
     </head>
 
     <body>
