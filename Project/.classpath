@@ -17,7 +17,9 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate"/>
-	<classpathentry kind="lib" path="C:/Users/yogit/Desktop/OOAD/Project3/jsoup-1.8.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jdbc Connector"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Joda Time Library"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JSoup Jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate Jars"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
