@@ -4,7 +4,7 @@ import org.json.*;
 
 import com.campusTalk.database.DbProxy;
 
-public class userController {
+public class UserController {
 	
 	DbProxy db = new DbProxy();
 
