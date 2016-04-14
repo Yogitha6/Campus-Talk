@@ -20,7 +20,29 @@ function login()
 
 }
 
-// Unsubscribe from a forum
+//Create forum
+function createForum()
+{			
+	var userId = 100; // get from session
+	var topicId = 12; // get from session
+	var forumDescription = $("#forumDescription").val();
+	alert('userId-'+userId);
+	alert('topicId-'+topicId);
+	alert('forumDescription-'+forumDescription);
+	if(userId != null && topicId != null && forumDescription != null)
+	{
+		$.ajax({
+			url : "/CampusTalk/rest/CampusTalkAPI/createForum",
+			datatype:'json',
+			type: "post",
+			contentType: "application/json",
+			data: JSON.stringify({userId: userId, topicId: topicId, forumDescription: forumDescription}),
+		}).done(function(data){
+			console.log("user Id, topic Id and forumDescription sent to server")});
+	}
+}
+
+//Unsubscribe from a forum
 function unsubscribe()
 {			
 	//var userId = '@Request.RequestContext.HttpContext.Session["userId"]';
