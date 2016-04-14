@@ -1,13 +1,10 @@
 //Script for the application
 
-// Login
+// Login Validation
 function login()
 {			
 	var username = new String(document.getElementById("form-username").value); // $("#id").val()
 	var password = new String(document.getElementById("form-password").value);
-	alert('username '+$("#form-username").val());
-	alert('password '+password);
-	//alert('username from session '+$.session.get('userName');)
 	var emailRegExp = /^([a-zA-Z0-9._`-]{4})+@colorado.edu$/;
 	var passwordRegExp = /^[a-zA-Z0-9._`-]{4,}$/;
 	//validating username and password
