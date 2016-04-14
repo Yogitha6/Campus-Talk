@@ -88,6 +88,26 @@ public class CampusTalkAPI{
 	}
 	
 	@POST
+	@Path("createForum")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void createForum(InputStream input)
+	{
+		StringBuilder strBuilder = new StringBuilder();		
+		ForumController forumController = new ForumController();
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(input));
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				strBuilder.append(line);
+			}
+		} catch (Exception e) {
+			System.out.println("Error Parsing: - ");
+		}
+		System.out.println("Data Received: " + strBuilder.toString());
+		forumController.createForum(strBuilder.toString());	
+	}
+	
+	@POST
 	@Path("createPost")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void createPost(InputStream input)
