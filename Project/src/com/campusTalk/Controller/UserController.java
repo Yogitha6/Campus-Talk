@@ -6,7 +6,11 @@ import com.campusTalk.database.DbProxy;
 
 public class UserController {
 	
-	DbProxy db = new DbProxy();
+	private DbProxy dbproxy = null;
+	
+	public UserController(){
+		dbproxy = new DbProxy();
+	}
 
 	public int authenticate(String userCredentials) {
 		int statusCode = 401;
@@ -16,7 +20,7 @@ public class UserController {
 			String username = json.getString("name");
 			String password = json.getString("pwd");
 			//System.out.println("name and password "+username+" "+password);
-			String actualPassword = db.getPassword(username);
+			String actualPassword = dbproxy.getPassword(username);
 			//System.out.println("Actual Password is "+actualPassword);
 				if(!password.equals(""))
 				{
