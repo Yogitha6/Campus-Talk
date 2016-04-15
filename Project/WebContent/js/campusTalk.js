@@ -19,7 +19,7 @@ function login()
 	else
 	{
 		$.ajax({
-			url : "/CampusTalk/rest/Login/post",
+			url : "/CampusTalk/rest/CampusTalkAPI/login",
 			datatype:'json',
 			type: "post",
 			contentType: "application/json",
