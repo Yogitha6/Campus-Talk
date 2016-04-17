@@ -20,7 +20,7 @@ public class ReplyController {
 				int postId = Integer.parseInt(json.getString("postId"));
 				String replyDescription = json.getString("replyDescription");
 				Date dateCreated = new Date();
-				System.out.println("Reply Controller createReply - userId, postId, replyDescription, dateCreated "+userId+" "+postId+" "+replyDescription+" "+dateCreated);
+				//System.out.println("Reply Controller createReply - userId, postId, replyDescription, dateCreated "+userId+" "+postId+" "+replyDescription+" "+dateCreated);
 				Reply reply = new Reply(1,replyDescription,userId,dateCreated,postId);
 				dbproxy.saveReplyDetails(reply);
 			} catch (JSONException e) {

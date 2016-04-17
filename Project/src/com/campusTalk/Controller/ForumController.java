@@ -1,9 +1,7 @@
 package com.campusTalk.Controller;
 
-import java.util.Date;
-
+import java.util.*;
 import org.json.*;
-
 import com.campusTalk.database.*;
 import com.campusTalk.model.*;
 
@@ -20,7 +18,7 @@ public class ForumController {
 				JSONObject json = new JSONObject(userForumDetails);
 				int userId = Integer.parseInt(json.getString("userId"));
 				int forumId = Integer.parseInt(json.getString("forumId"));
-				System.out.println("Forum Controller unsubscribe - userId and forumId "+userId+" "+forumId);
+				//System.out.println("Forum Controller unsubscribe - userId and forumId "+userId+" "+forumId);
 				dbproxy.deleteSubscription(userId, forumId);
 			} catch (JSONException e) {
 			e.printStackTrace();
@@ -33,7 +31,7 @@ public class ForumController {
 				int userId = Integer.parseInt(json.getString("userId"));
 				int forumId = Integer.parseInt(json.getString("forumId"));
 				Subscription subscription = new Subscription(userId,forumId);
-				System.out.println("Forum Controller subscribe - userId and forumId "+userId+" "+forumId);
+				//System.out.println("Forum Controller subscribe - userId and forumId "+userId+" "+forumId);
 				dbproxy.saveSubscription(subscription);
 			} catch (JSONException e) {
 			e.printStackTrace();
@@ -47,11 +45,62 @@ public class ForumController {
 				int topicId = Integer.parseInt(json.getString("topicId"));
 				String forumDescription = json.getString("forumDescription");
 				Date dateCreated = new Date();
-				System.out.println("Forum Controller createForum - userId, topicId, forumDescription, dateCreated "+userId+" "+topicId+" "+forumDescription+" "+dateCreated);
+				//System.out.println("Forum Controller createForum - userId, topicId, forumDescription, dateCreated "+userId+" "+topicId+" "+forumDescription+" "+dateCreated);
 				Forum forum = new Forum(1,forumDescription,userId,dateCreated,topicId);
 				dbproxy.saveForumDetails(forum);
 			} catch (JSONException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public List<Post> getPostsInForum(String forumIdJSON) {
+		List<Post> posts = new ArrayList<Post>();
+		try {
+				JSONObject json = new JSONObject(forumIdJSON);
+				int forumId = Integer.parseInt(json.getString("forumId"));
+				//System.out.println("Forum Controller getPostsInForum - forumId "+forumId);
+				posts = dbproxy.getPostsInForum(forumId);
+			} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return posts;
+	}
+	
+	public List<PostAndReply> getPostsAndReplies(String forumIdJSON) {
+		List<PostAndReply> prArr = new ArrayList<PostAndReply>();
+		try {
+				JSONObject json = new JSONObject(forumIdJSON);
+				int forumId = Integer.parseInt(json.getString("forumId"));
+				//System.out.println("Forum Controller getPostsInForum - forumId "+forumId);
+				prArr = dbproxy.getPostsAndReplies(forumId);
+			} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return prArr;
+	}
+	
+	public int getCountOfSubscribers(String forumIdJSON) {
+		int count = 0;
+		try {
+				JSONObject json = new JSONObject(forumIdJSON);
+				int forumId = Integer.parseInt(json.getString("forumId"));
+				int userId = Integer.parseInt(json.getString("userId"));
+				//System.out.println("Forum Controller getCountOfSubscribers - forumId "+forumId+",userId - "+userId);
+				count = dbproxy.getCountOfSubscribers(forumId, userId);
+			} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public List<Topic> getTopics() {
+		List<Topic> topicArr = new ArrayList<Topic>();
+		try {
+				topicArr = dbproxy.getTopics();
+			} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return topicArr;
+	}
+	
 }
