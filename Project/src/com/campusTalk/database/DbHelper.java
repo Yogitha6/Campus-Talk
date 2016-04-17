@@ -1,15 +1,10 @@
 package com.campusTalk.database;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 
 import com.campusTalk.model.*;
-import com.campusTalk.model.User;
 
 public class DbHelper implements DbProxyInterface {
 
@@ -66,15 +61,13 @@ public class DbHelper implements DbProxyInterface {
 	@Override
 	public void saveForumDetails(Forum forum) {
 		// TODO Auto-generated method stub
-		System.out.println("DbHelper...saveForumResults");
-		System.out.println(this.sessionFactory);
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
 			session.save(forum);
 			tx.commit();
-			System.out.println("Forum Committed..");
+			//System.out.println("Forum Committed..");
 		}catch(HibernateException e){
 			if(tx != null){
 				tx.rollback();
@@ -94,14 +87,13 @@ public class DbHelper implements DbProxyInterface {
 	@Override
 	public void savePostDetails(Post post) {
 		// TODO Auto-generated method stub
-		System.out.println("DbHelper..savePostDetails");
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
 			session.save(post);
 			tx.commit();
-			System.out.println("Post Committed..");
+			//System.out.println("Post Committed..");
 		}catch(HibernateException e){
 			if(tx != null){
 				tx.rollback();
@@ -116,26 +108,15 @@ public class DbHelper implements DbProxyInterface {
 	@Override
 	public List<Post> getPostsInForum(int forumId) {
 		// TODO Auto-generated method stub
-		System.out.println("DbHelper->getPostsInForum...");
+		//System.out.println("DbHelper->getPostsInForum...");
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		List<Post> postArr = new ArrayList<Post>();
 		try{
 			tx = session.beginTransaction();
 			Query query = session.createQuery("from Post where forumId = :forumId");
-			System.out.println("Search for Forum Id...."+forumId);
 			query.setParameter("forumId", forumId);
-			System.out.println("Query--"+query);
 			postArr = query.list();
-			System.out.println("No of rows retrieved.."+postArr.size());
-			System.out.println("Todays Date - "+new Date());
-			for(Post post : postArr){
-				System.out.println("Post - id----"+post.getPostId());
-				System.out.println("Post - Description----"+post.getDescription());
-				System.out.println("Post - Forum id----"+post.getForumId());
-				System.out.println("Post Created Date---"+post.getCreatedDate());
-				System.out.println("No of days.."+getNoOfDays(post.getCreatedDate()));
-			}
 		}catch(HibernateException e){
 			if(tx != null){
 				tx.rollback();
@@ -156,7 +137,7 @@ public class DbHelper implements DbProxyInterface {
 			tx = session.beginTransaction();
 			session.save(reply);
 			tx.commit();
-			System.out.println("Reply Committed..");
+			//System.out.println("Reply Committed..");
 		}catch(HibernateException e){
 			if(tx != null){
 				tx.rollback();
@@ -170,7 +151,6 @@ public class DbHelper implements DbProxyInterface {
 	@Override
 	public List<Reply> getRepliesToPost(int postId) {
 		// TODO Auto-generated method stub
-		System.out.println("DbHelper->getRepliesToPost...");
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		List<Reply> replyArr = new ArrayList<Reply>();
@@ -179,11 +159,11 @@ public class DbHelper implements DbProxyInterface {
 			Query query = session.createQuery("from Reply where postId = :postId");
 			query.setParameter("postId", postId);
 			replyArr = query.list();
-			for(Reply reply : replyArr){
+/*			for(Reply reply : replyArr){
 				System.out.println("Reply - id----"+reply.getReplyId());
 				System.out.println("Reply - Description----"+reply.getDescription());
 				System.out.println("Reply - Post id----"+reply.getPostId());
-			}
+			}*/
 		}catch(HibernateException e){
 			if(tx != null){
 				tx.rollback();
@@ -204,7 +184,7 @@ public class DbHelper implements DbProxyInterface {
 			tx = session.beginTransaction();
 			session.saveOrUpdate(subscription);
 			tx.commit();
-			System.out.println("Subscription Committed..");
+			//System.out.println("Subscription Committed..");
 		}catch(HibernateException e){
 			if(tx != null){
 				tx.rollback();
@@ -222,7 +202,6 @@ public class DbHelper implements DbProxyInterface {
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			System.out.println("DbHelper - Delete Subscription..");
 			Query query = session.createQuery("delete from Subscription where userId = :userId and forumId = :forumId");
 			query.setParameter("userId", userId);
 			query.setParameter("forumId", forumId);
@@ -230,9 +209,9 @@ public class DbHelper implements DbProxyInterface {
 			System.out.println("Execute query..");
 			if(result > 0){
 				tx.commit();
-				System.out.println("Subscription Removed..");
+				//System.out.println("Subscription Removed..");
 			}else{
-				System.out.println("Subscription does not exist");
+				//System.out.println("Subscription does not exist");
 				tx.rollback();
 			}
 		}catch(HibernateException e){
@@ -245,19 +224,26 @@ public class DbHelper implements DbProxyInterface {
 		}
 	}
 	
-	public int getCountOfSubscribers(int forumId) {
+	public int getCountOfSubscribers(int forumId, int userId) {
 		// TODO Auto-generated method stub
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = null;
 		int countOfSubscribers = 0;
 		try{
 			tx = session.beginTransaction();
-			System.out.println("DbHelper - getCountOfSubscribers..");
-			Query query = session.createQuery("select count(*) from Subscription where forumId = :forumId");
-			query.setParameter("forumId", forumId);
+			Query query = null;
+			if(userId == 0){
+				query = session.createQuery("select count(*) from Subscription where forumId = :forumId");
+				query.setParameter("forumId", forumId);
+			} else{
+				query = session.createQuery("select count(*) from Subscription where forumId = :forumId and userId = :userId");
+				query.setParameter("forumId", forumId);
+				query.setParameter("userId", userId);
+			}
+
 			Long count = (Long)query.uniqueResult();
 			countOfSubscribers = count.intValue();
-			System.out.println("No of subscribers.."+countOfSubscribers);
+			//System.out.println("No of subscribers.."+countOfSubscribers);
 		}catch(HibernateException e){
 			if(tx != null){
 				tx.rollback();
@@ -293,19 +279,92 @@ public class DbHelper implements DbProxyInterface {
 		return password;
 	}
 	
-	public int getNoOfDays(Date createdDate){
-		int days = 0;
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date startDate = new Date();
-		Date today = Calendar.getInstance().getTime();
+	@SuppressWarnings("unchecked")
+	public List<PostAndReply> getPostsAndReplies(int forumId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		List<Post> postArr = new ArrayList<Post>();
+		List<PostAndReply> prArray = new ArrayList<PostAndReply>();
+		
 		try{
-			startDate = formatter.parse(createdDate.toString());
-		}
-		catch(ParseException e)    {
-		    System.out.println("Parser Exception");
-		}
-		days = Days.daysBetween(new DateTime(startDate), new DateTime(today)).getDays();
-		//System.out.println(" Days Between " + startDate + " : " + today + " - " + days);
-		return days;
+			tx = session.beginTransaction();
+			Query query = session.createQuery("from Post where forumId = :forumId");
+			query.setParameter("forumId", forumId);
+			postArr = query.list();
+			System.out.println("No of posts.."+postArr.size());
+			for(Post post : postArr){
+				int postId = post.getPostId();
+				System.out.println("Post id----"+postId);
+				List<Reply> replies = getRepliesToPost(postId);
+				User user = getUser(post.getCreatedBy());
+				String postCreatorName = user.getFirstname()+' '+user.getLastname();
+				PostAndReply pr = new PostAndReply();
+				pr.setPost(post);
+				pr.setReplies(replies);
+				pr.setPostCreatorName(postCreatorName);
+				prArray.add(pr);
+				//System.out.println("Post - Description----"+post.getDescription());
+				//System.out.println("No of Replies----"+replies.size());
+			}
+		}catch(HibernateException e){
+			if(tx != null){
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}finally {
+			session.close();
+		}	
+		return prArray;
 	}
+
+	@Override
+	// to be deleted
+	public User getUser(int userId) {
+		// TODO Auto-generated method stub
+		System.out.println("DbHelper->getUser...");
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		User user = new User();
+		try{
+			tx = session.beginTransaction();
+			user = (User)session.get(User.class, userId); 
+			//System.out.println("First Name - "+user.getFirstname());
+			//System.out.println("Last Name - "+user.getLastname());
+		}catch(HibernateException e){
+			if(tx != null){
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}finally {
+			session.close();
+		}	
+		return user;
+	}
+
+	@Override
+	public List<Topic> getTopics() {
+		// TODO Auto-generated method stub
+		List<Topic> topicArr = new ArrayList<Topic>();
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Query query = session.createQuery("from Topic");
+			topicArr = query.list();
+			/*for(Topic topic : topicArr){
+				System.out.println("Topic Description----"+topic.getTopicDescription());
+				System.out.println("Topic Id----"+topic.getTopicId());
+			}*/
+		}catch(HibernateException e){
+			if(tx != null){
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}finally {
+			session.close();
+		}	
+		return topicArr;
+	}
+	
 }

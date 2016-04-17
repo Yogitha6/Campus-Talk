@@ -67,9 +67,9 @@ public class DbProxy implements DbProxyInterface {
 	}
 	
 	@Override
-	public int getCountOfSubscribers(int forumId) {
+	public int getCountOfSubscribers(int forumId, int userId) {
 		// TODO Auto-generated method stub
-		return this.dbhelper.getCountOfSubscribers(forumId);
+		return this.dbhelper.getCountOfSubscribers(forumId, userId);
 	}
 	
 	@Override
@@ -82,5 +82,22 @@ public class DbProxy implements DbProxyInterface {
 		// TODO Auto-generated method stub
 		String password =  this.dbhelper.getUserPassword(emailId);
 		return password;
+	}
+	
+	@Override
+	public List<PostAndReply> getPostsAndReplies(int forumId) {
+		return this.dbhelper.getPostsAndReplies(forumId);
+	}
+
+	@Override
+	public User getUser(int userId) {
+		// TODO Auto-generated method stub
+		return this.dbhelper.getUser(userId);
+	}
+
+	@Override
+	public List<Topic> getTopics() {
+		// TODO Auto-generated method stub
+		return this.dbhelper.getTopics();
 	}
 }
