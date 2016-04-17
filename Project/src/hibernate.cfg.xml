@@ -18,6 +18,7 @@
 		<mapping resource="Post.hbm.xml"/>
 		<mapping resource="Reply.hbm.xml"/>
 		<mapping resource="Subscription.hbm.xml"/>
+		<mapping resource="Topic.hbm.xml"/>
 		<mapping class="com.campusTalk.model.Event"/>
 		<mapping class="com.campusTalk.model.User"/>
 	
