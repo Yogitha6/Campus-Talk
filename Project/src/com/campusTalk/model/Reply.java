@@ -2,6 +2,9 @@ package com.campusTalk.model;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Reply {
 	private int replyId;
 	private String description;
@@ -17,8 +20,6 @@ public class Reply {
 		this.createdBy = createdBy;
 		if(createdDate == null){
 			createdDate = new Date();
-			System.out.println("Creation Date null");
-			
 		}
 		this.createdDate = createdDate;
 		this.postId = postId;

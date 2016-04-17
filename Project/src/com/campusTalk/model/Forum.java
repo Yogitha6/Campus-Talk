@@ -16,9 +16,7 @@ public class Forum {
 		this.description = description;
 		this.createdBy = createdBy;
 		if(createdDate == null){
-			createdDate = new Date();
-			System.out.println("Creation Date null");
-			
+			createdDate = new Date();	
 		}
 		this.createdDate = createdDate;
 		this.topicId = topicId;
