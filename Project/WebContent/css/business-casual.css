@@ -111,7 +111,7 @@ footer p {
     margin: 0;
     padding: 2px 0;
 }
-
+    
 @media screen and (min-width:768px) {
     .brand {
         display: inherit;
@@ -124,6 +124,15 @@ footer p {
         font-weight: 700;
         line-height: normal;
         color: #fff;
+    }
+    
+    .testTitle {
+        width: 100%;
+        float: left;
+        position: relative;
+    	min-height: 1px;
+    	padding-right: 15px;
+    	padding-left: 15px;
     }
 
     .top-divider {
@@ -143,10 +152,106 @@ footer p {
         text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         text-transform: uppercase;
         font-size: 1em;
-        font-weight: 200;
+        font-weight: 400;
         letter-spacing: 3px;
         color: #fff;
     }
+    
+    .infobar1 {
+        font-size: 1em;
+	    line-height: 1;
+	    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+	    color: #555;
+	    margin: 0 0 10px;
+	    box-sizing: border-box;
+	    display: block;
+	    -webkit-margin-before: 1em;
+	    -webkit-margin-after: 1em;
+	    -webkit-margin-start: 0px;
+	    -webkit-margin-end: 0px;
+	    text-align: left;
+	    float: left;
+	    width: 50%
+    }
+    
+     .infobar2 {
+        font-size: 1.25em;
+	    line-height: 1;
+	    color: #555;
+	    margin: 0 0 10px;
+	    box-sizing: border-box;
+	    display: block;
+	    -webkit-margin-before: 1em;
+	    -webkit-margin-after: 1em;
+	    -webkit-margin-start: 0px;
+	    -webkit-margin-end: 0px;
+	    text-align: right;
+	    float: right;
+	    width: 50%
+    }
+    
+    .infobar3 {
+        font-size: 1em;
+	    line-height: 1;
+	    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+	    color: #000;
+	    margin: 0 0 10px;
+	    box-sizing: border-box;
+	    display: block;
+	    -webkit-margin-before: 1em;
+	    -webkit-margin-after: 1em;
+	    -webkit-margin-start: 0px;
+	    -webkit-margin-end: 0px;
+	    text-align: right;
+	    float: right;
+	    width: 50%
+    }
+    
+    .postStyle {
+        font-size: 1.25em;
+	    line-height: 1;
+	    color: #000;
+	    padding-left:10px;
+	    box-sizing: border-box;
+	    display: block;
+	    -webkit-margin-before: 1em;
+	    -webkit-margin-after: 1em;
+	    -webkit-margin-start: 0px;
+	    -webkit-margin-end: 0px;
+	    text-align: left;
+	    float: left;
+	    width: 900 px;
+	    height: 300 px    
+    }
+    
+    .forumTitle {
+	    text-transform: uppercase;
+	    font-family: "Josefin Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+	    font-weight: 600;
+	    letter-spacing: 1px;
+	    color: #000;
+	    font-size: 22px;
+	    line-height: 30px;
+	    margin-bottom: 10px;
+	    box-sizing: border-box;
+	    display: block;
+	    -webkit-margin-before: 1em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+	}
+
+	.form-top-right-buttons {
+	    float: right;
+	    width: 55%;
+	    padding-top: 1px;
+	    font-size: 66px;
+	    color: #ddd;
+	    line-height: 10px;
+	    text-align: right;
+	    display: block;
+	    box-sizing: border-box;
+	}
 
     .navbar {
         border-radius: 0;
