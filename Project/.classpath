@@ -18,7 +18,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jdbc Connector"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Joda Time Library"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gson Jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JSoup Jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate Jars"/>
 	<classpathentry kind="output" path="target/classes"/>
