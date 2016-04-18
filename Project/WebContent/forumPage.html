@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus Talk - Web Application - CSCI 5448</title>
+
+<!-- CSS -->
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="assets/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/form-elements.css">
+<link rel="stylesheet" href="assets/css/campusTalk.css">
+<link href="css/business-casual.css" rel="stylesheet">
+
+<!-- Favicon and touch icons -->
+<link rel="shortcut icon" href="assets/ico/favicon.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="assets/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"> </script>
+
+
+</head>
+<body onload=loadForumPage()>
+	<div class="brand">Campus Talk</div>
+	<div class="address-bar">Focus on Collaboration instead of
+		Competition</div>
+	<!-- Top content -->
+
+	<button type="submit" class="btn">Home</button>
+	<button type="submit" class="btn">Search</button>
+	<button type="submit" class="btn">Profile</button>
+	<button type="submit" class="btn">Logout</button>
+	
+	<div class="top-content">
+		<div class="inner-bg">
+			<div class="container">
+				<div class="row" style="display: inline;">
+					<div class="col-sm-10">
+						<div class="form-box">
+							<div class="form-top">
+								<div class="col-sm-11">
+									<div class="forumTitle" id="forumTitle"></div>
+									<div id="forumCreatorInfo" class="forumCreator"></div>
+									<div id="subscribersInfo" class="subscribersInfo"></div>
+									<div id="noOfPostsInfo" class="noOfPostsInfo"></div>
+								</div>
+								<div id='myDiv'></div>
+								<div class="form-top-left" id="blogs" style="border-style: solid;">									
+								</div>
+							</div>
+						</div>
+					</div>							
+					<div class="col-sm-2">
+						<div id="buttons" style="height: 20px">
+							<button type="submit" id="btnCreateForum" class="btn" style="margin-bottom: 20px"
+								onclick=createForum()>Create Forum</button>
+							<button type="submit" id="btnSubscribe" class="btn" style="margin-bottom: 20px"
+								onclick=subscribe()>Subscribe</button>
+							<button type="submit" id="btnUnsubscribe" class="btn" style="margin-bottom: 20px"
+								onclick=unsubscribe()>Unsubscribe</button>
+							<button type="submit" class="btn" id="btnNewPost">New Post</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+ 	<div id="newForumModal" class="modal">
+		<!-- New Forum Modal content -->
+		<div class="modal-content">
+			<label class="postText">New Forum</label>
+			<textarea name='forumName' id="forumDescription" cols="40" rows="3"
+				style="text-align: left; font-weight: 400; color: black;"></textarea><br><br>
+			<label class="postText">Topic</label>
+			<select id="selectTopic" style="width: 400px; margin-left: 58px; font-weight: 400; color: black;"></select>
+			<div style="margin-top: 20px; text-align: center;">
+				<button name="Forum" class="btn" onclick=createForum()>Create</button>
+				<button name="Cancel" id="closeForum" class="btn">Cancel</button>
+			</div>
+		</div>		
+	</div> 
+	
+	<div id="newPostModal" class="modal">
+		<!-- New Post Modal content -->
+		<div class="modal-content">
+			<label class="postText">New Post</label>
+			<textarea name='postName' id="postDescription" cols="40" rows="3"
+				style="text-align: left; font-weight: 400; color: black;"></textarea>
+			<div style="margin-top: 20px; text-align: center;">
+				<button name="Post" class="btn" onclick=createPost()>Create</button>
+				<button name="Cancel" id="closePost" class="btn">Cancel</button>
+			</div>
+		</div>		
+	</div>
+
+    
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<p>CampusTalk &copy; CSCI 5448 2016</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Javascript -->
+	<script src="assets/js/jquery-1.11.1.min.js"></script>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/js/jquery.backstretch.min.js"></script>
+	<script src="assets/js/scripts.js"></script>
+	<script src="js/campusTalk.js"></script>
+ 		
+
+</body>
+</html>
