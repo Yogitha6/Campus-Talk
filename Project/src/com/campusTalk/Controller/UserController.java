@@ -6,6 +6,7 @@ import org.json.*;
 
 import com.campusTalk.database.DbProxy;
 import com.campusTalk.model.User;
+import com.campusTalk.model.UserTopic;
 
 public class UserController {
 	
@@ -57,6 +58,11 @@ public class UserController {
 				//System.out.println("Forum Controller createForum - userId, topicId, forumDescription, dateCreated "+userId+" "+topicId+" "+forumDescription+" "+dateCreated);
 				User user = new User(firstName, lastName, emailId, password, major);
 				dbproxy.saveUserDetails(user);
+				for (String topic: topics.split(",")){
+			         UserTopic userTopic = new UserTopic(user.getUserId(), Integer.parseInt(topic));
+			         dbproxy.saveUserTopic(userTopic);
+			    }
+				
 			} catch (JSONException e) {
 			e.printStackTrace();
 		}
