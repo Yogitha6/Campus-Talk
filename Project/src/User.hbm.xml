@@ -6,7 +6,7 @@
  <hibernate-mapping>
     <class name="com.campusTalk.model.User" table="user">
     <id name="userId" column="userId" type="int">
-        <generator class="native"/>
+        <generator class="increment"/>
     </id>
     <property name="firstName" column="firstName" type="string"></property>
     <property name="lastName" column="lastName" type="string"></property>
