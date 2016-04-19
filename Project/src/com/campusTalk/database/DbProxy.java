@@ -100,4 +100,11 @@ public class DbProxy implements DbProxyInterface {
 		// TODO Auto-generated method stub
 		return this.dbhelper.getTopics();
 	}
+
+	@Override
+	public void saveUserDetails(User user) {
+		// TODO Auto-generated method stub
+		this.dbhelper.saveUserDetails(user);
+		
+	}
 }

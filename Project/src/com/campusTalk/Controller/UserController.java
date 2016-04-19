@@ -1,8 +1,11 @@
 package com.campusTalk.Controller;
 
+import java.util.Date;
+
 import org.json.*;
 
 import com.campusTalk.database.DbProxy;
+import com.campusTalk.model.User;
 
 public class UserController {
 	
@@ -40,5 +43,22 @@ public class UserController {
 		}
 		
 		return statusCode;
+	}
+	
+	public void createUser(String userDetails) {
+		try {
+				JSONObject json = new JSONObject(userDetails);
+				String firstName = json.getString("firstName");
+				String lastName = json.getString("lastName");
+				String emailId = json.getString("emailId");
+				String password = json.getString("password");
+				String major = json.getString("major");
+				String topics = json.getString("topics");
+				//System.out.println("Forum Controller createForum - userId, topicId, forumDescription, dateCreated "+userId+" "+topicId+" "+forumDescription+" "+dateCreated);
+				User user = new User(firstName, lastName, emailId, password, major);
+				dbproxy.saveUserDetails(user);
+			} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -347,4 +347,50 @@ function populateTopics(){
 			}
 		}
 	});
+};
+
+//Signup Page JavaScript
+function initializeTopics(){
+    var select = $(".form-topic")
+    var defaultOpt = document.createElement("option");
+    getTopics(function(result){
+        if(result != null){
+            for(var i=0;i<result.length;i++){
+                var topicDescription = result[i].topicDescription;
+                var topicId = result[i].topicId;
+                var opt = document.createElement("option");
+                opt.textContent = topicDescription;
+                opt.value = topicId;
+                select.append(opt);
+            }
+        }
+    });
+    
+    $(".form-topic").select2({
+        placeholder: "Select Topic Interested In",
+        allowClear: true,
+        width: '100%'
+    });
+    $(".select2-selection--multiple").css( "background-color", "#f8f8f8" );
+    $(".select2-selection--multiple").css( "border", "1px solid blue" );
+};
+
+function signup(){
+    var firstName = $("#form-first-name").val();
+    var lastName = $("#form-last-name").val();
+    var emailId = $("#form-email").val();
+    var password = $("#form-password").val();
+    var major = $("#form-major").val()
+    var topics = $(".form-topic").val();
+    $.ajax({
+        url : "/CampusTalk/rest/CampusTalkAPI/createUser",
+            datatype:'json',
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify({firstName: firstName, lastName: lastName, emailId: emailId, password: password, major: major, topics: topics}),
+        }).done(function(data){
+            //console.log("user Id, topic Id and forumDescription sent to server");
+            $("#newForumModal").css("display","none");
+        });
 }
+

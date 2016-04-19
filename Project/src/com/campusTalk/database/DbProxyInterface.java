@@ -19,4 +19,5 @@ public interface DbProxyInterface {
 	public List<PostAndReply> getPostsAndReplies(int forumId);
 	public User getUser(int userId);
 	public List<Topic> getTopics();
+	public void saveUserDetails(User user);
 }

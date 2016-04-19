@@ -218,4 +218,24 @@ public class CampusTalkAPI{
 		countOfSubscribed.put("countOfSubscribers", countOfSubscribers);
 		return Response.ok(countOfSubscribed.toString()).build();
 	}
+	
+	@POST
+	@Path("createUser")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void createUser(InputStream input)
+	{
+		StringBuilder strBuilder = new StringBuilder();		
+		UserController userController = new UserController();
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(input));
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				strBuilder.append(line);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//System.out.println("Data Received: " + strBuilder.toString());
+		userController.createUser(strBuilder.toString());	
+	}
 }

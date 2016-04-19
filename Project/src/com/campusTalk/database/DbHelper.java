@@ -366,5 +366,25 @@ public class DbHelper implements DbProxyInterface {
 		}	
 		return topicArr;
 	}
+
+	@Override
+	public void saveUserDetails(User user) {
+		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			session.save(user);
+			tx.commit();
+			//System.out.println("Forum Committed..");
+		}catch(HibernateException e){
+			if(tx != null){
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}finally {
+			session.close();
+		}
+	}
 	
 }

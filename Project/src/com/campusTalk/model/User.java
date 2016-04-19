@@ -1,5 +1,7 @@
 package com.campusTalk.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,7 +28,17 @@ public class User {
 	
 	@Column(name="major")
 	private String major;
+	
+	public User(){};
 
+	public User(String firstName, String lastName, String emailId, String password, String major){
+		this.firstname = firstName;
+		this.lastname = lastName;
+		this.emailId = emailId;
+		this.password = password;
+		this.major = major;
+	}
+	
 	public int getUserId() {
 		return userId;
 	}

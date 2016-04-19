@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+ <hibernate-mapping>
+    <class name="com.campusTalk.model.User" table="user">
+    <id name="userId" column="userId" type="int">
+        <generator class="native"/>
+    </id>
+    <property name="firstName" column="firstName" type="string"></property>
+    <property name="lastName" column="lastName" type="string"></property>
+    <property name="emailId" column="emailId" type="string"></property>
+    <property name="password" column="password" type="string"></property>
+    <property name="major" column="major" type="string"></property>
+    </class>
+ </hibernate-mapping>
