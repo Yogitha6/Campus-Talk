@@ -107,15 +107,15 @@ public class DbProxy implements DbProxyInterface {
 		this.dbhelper.saveUserDetails(user); }
 		
 	@Override
-	public List<Event> getEventsToday(int userId) {
+	public List<Event> getEventDetails(int userId) {
 		// TODO Auto-generated method stub
-		return this.dbhelper.getEventDetails();
+		return this.dbhelper.getEventDetails(userId);
 	}
 
 	@Override
 	public List<Forum> getForumsOfaUser(int userId) {
 		// TODO Auto-generated method stub
 		String criteria = "user";
-		return this.dbhelper.getForumOfaUser(userId);
+		return this.dbhelper.getForumsOfaUser(userId);
 	}
 }

@@ -386,8 +386,8 @@ public class DbHelper implements DbProxyInterface {
 			session.close();
 		}
 	}
-
-	public List<Event> getEventDetails() {
+	@Override
+	public List<Event> getEventDetails(int userId) {
 		// TODO Auto-generated method stub
 		List<Event> events = new ArrayList<Event>();
 		Session session = sessionFactory.openSession();
@@ -409,8 +409,8 @@ public class DbHelper implements DbProxyInterface {
 			}
 		return events;
 	}
-
-	public List<Forum> getForumOfaUser(int userId) {
+	@Override
+	public List<Forum> getForumsOfaUser(int userId) {
 		// TODO Auto-generated method stub
 		List<Forum> forums = new ArrayList<Forum>();
 		Session session = sessionFactory.openSession();

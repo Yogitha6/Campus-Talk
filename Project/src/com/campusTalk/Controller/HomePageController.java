@@ -39,7 +39,7 @@ private DbProxy dbproxy = null;
 			System.out.println(userIdJSON);
 				JSONObject json = new JSONObject(userIdJSON);
 				int userId = Integer.parseInt(json.getString("userId"));
-				events = dbproxy.getEventsToday(userId);
+				events = dbproxy.getEventDetails(userId);
 			} catch (JSONException e) {
 			e.printStackTrace();
 		}

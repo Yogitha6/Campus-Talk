@@ -145,6 +145,7 @@ function login()
 			data: JSON.stringify({name: username, pwd: password}),
 		}).done(function(data){
 			//console.log("login credentials have been sent for authorization");
+			window.location = 'HomePage.html';
 		});
 	}
 }
@@ -347,7 +348,7 @@ function populateTopics(){
 			}
 		}
 	});
-};
+}
 
 //Signup Page JavaScript
 function initializeTopics(){
@@ -393,4 +394,82 @@ function signup(){
             $("#newForumModal").css("display","none");
         });
 }
+
+//get Home Page
+function loadHomePage(id)
+{			
+  getHomePageForumContents(id, function(result){
+	  //get the data and set the div contents
+	  console.log(result[0]);
+	  
+  }
+
+  );
+  getHomePageEventConents(id, function(result){
+	  //get the even data and set the div contents
+	  console.log(result[0]);
+  }
+  );
+  getHomePageForumMemberships(id, function(result){
+	  //get the person forum memberships and set the div contents
+	  console.log(result[0]);
+  });
+}
+
+function getHomePageForumContents(id, callback)
+{
+	var userId = id;
+	if(userId != null)
+	{
+		$.ajax({
+			url : "/CampusTalk/rest/CampusTalkAPI/HomePage_Forums",
+			datatype:'json',
+			type: "post",
+			contentType: "application/json",
+			data: JSON.stringify({userId: userId}),
+			success: function(data){
+				console.log("Getting the Home Page Posts from Forums");
+				callback(data);
+			}
+		});
+	}
+}
+
+function getHomePageEventConents(id, callback)
+{
+	var userId = id;
+	if(userId != null)
+		{
+		$.ajax({
+			url : "/CampusTalk/rest/CampusTalkAPI/HomePage_Events",
+			datatype:'json',
+			type: "post",
+			contentType: "application/json",
+			data: JSON.stringify({userId: userId}),
+			success: function(data){
+				console.log("Getting the Home Page Posts from Forums");
+				callback(data);
+			}
+		});
+		}
+	}
+
+function getHomePageForumMemberships(id, callback)
+{
+	var userId = id;
+	if(userId != null)
+		{
+		$.ajax({
+			url : "/CampusTalk/rest/CampusTalkAPI/HomePage_ForumMemberships",
+			datatype:'json',
+			type: "post",
+			contentType: "application/json",
+			data: JSON.stringify({userId: userId}),
+			success: function(data){
+				console.log("Getting the Home Page Posts from Forums");
+				callback(data);
+			}
+		});
+		}
+	}
 
