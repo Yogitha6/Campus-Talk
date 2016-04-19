@@ -386,5 +386,59 @@ public class DbHelper implements DbProxyInterface {
 			session.close();
 		}
 	}
-	
+
+	public List<Event> getEventDetails() {
+		// TODO Auto-generated method stub
+		List<Event> events = new ArrayList<Event>();
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try
+		{
+			tx = session.beginTransaction();
+			Query query = session.createQuery("from Event");
+			events = query.list();
+		}
+		catch(HibernateException e){
+			if(tx != null){
+			tx.rollback();
+			e.printStackTrace();
+			}
+		}
+		finally {
+		session.close();
+			}
+		return events;
+	}
+
+	public List<Forum> getForumOfaUser(int userId) {
+		// TODO Auto-generated method stub
+		List<Forum> forums = new ArrayList<Forum>();
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try
+		{
+			tx = session.beginTransaction();
+			Query query = session.createQuery("from Subscription where userId = :userId");
+			query.setString("userId", String.valueOf(userId));
+			List<Subscription> userSubscribedGroups = query.list();
+			for(Subscription subsc : userSubscribedGroups)
+			{
+				query = session.createQuery("from Forum where forumId = :forumId");
+				query.setParameter("forumId", subsc.getForumId());
+				// add this to a list variable query.uniqueResult();
+				forums.add((Forum) query.uniqueResult());
+			}
+			
+		}
+		catch(HibernateException e){
+			if(tx != null){
+			tx.rollback();
+			e.printStackTrace();
+			}
+		}
+		finally {
+		session.close();
+			}
+		return forums;
+	}	
 }

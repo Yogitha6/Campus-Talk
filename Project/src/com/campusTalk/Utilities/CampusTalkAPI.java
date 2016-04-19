@@ -36,7 +36,7 @@ public class CampusTalkAPI{
 	@POST
 	@Path("login")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response postMsg(InputStream input)
+	public Response authenticate(InputStream input)
 	{
 		StringBuilder strBuilder = new StringBuilder();
 		UserController uc = new UserController();
@@ -217,6 +217,75 @@ public class CampusTalkAPI{
 		countOfSubscribers = forumController.getCountOfSubscribers(strBuilder.toString());
 		countOfSubscribed.put("countOfSubscribers", countOfSubscribers);
 		return Response.ok(countOfSubscribed.toString()).build();
+	}
+	
+	@POST
+	@Path("HomePage_Forums")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getHomePage_ForumPosts(InputStream input) throws JSONException
+	{
+		StringBuilder strBuilder = new StringBuilder();
+		HomePageController hc = new HomePageController();
+		List<Post> postsArray = new ArrayList<Post>();
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(input));
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				strBuilder.append(line);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		postsArray = hc.getHomePageForumPosts(strBuilder.toString());
+        String posts = new Gson().toJson(postsArray);
+        return Response.ok(posts).build();
+	}
+	
+	@POST
+	@Path("HomePage_Events")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getHomePage_Events(InputStream input) throws JSONException
+	{
+		StringBuilder strBuilder = new StringBuilder();
+		HomePageController hc = new HomePageController();
+		List<Event> eventsArray = new ArrayList<Event>();
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(input));
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				strBuilder.append(line);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		eventsArray = hc.getHomePageEvents(strBuilder.toString());
+		String events = new Gson().toJson(eventsArray);
+        return Response.ok(events).build();
+	}
+	
+	@POST
+	@Path("HomePage_ForumMemberships")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getHomePage_ForumMemberships(InputStream input) throws JSONException
+	{
+		StringBuilder strBuilder = new StringBuilder();
+		HomePageController hc = new HomePageController();
+		List<Forum> forumsArray = new ArrayList<Forum>();
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(input));
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				strBuilder.append(line);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		forumsArray = hc.getHomePageForumMemberships(strBuilder.toString());
+        String forums = new Gson().toJson(forumsArray);
+        return Response.ok(forums).build();
 	}
 	
 	@POST
