@@ -20,4 +20,6 @@ public interface DbProxyInterface {
 	public User getUser(int userId);
 	public List<Topic> getTopics();
 	public void saveUserDetails(User user);
+	public List<Forum> getForumsOfaUser(int userId);
+	public List<Event> getEventDetails(int userId);
 }
