@@ -379,7 +379,7 @@ function signup(){
     var firstName = $("#form-first-name").val();
     var lastName = $("#form-last-name").val();
     var emailId = $("#form-email").val();
-    var password = $("#form-password").val();
+    var password = $("#form-password-signup").val();
     var major = $("#form-major").val()
     var topics = $(".form-topic").val();
     $.ajax({
