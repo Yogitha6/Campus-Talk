@@ -403,12 +403,16 @@ function signup(){
                 contentType: "application/json",
                 data: JSON.stringify({firstName: firstName, lastName: lastName, emailId: emailId, password: password, major: major, topics: topics}),
             }).done(function(data){
-                alert(data);
-                //console.log("user Id, topic Id and forumDescription sent to server");
-                $("#newForumModal").css("display","none");
+                Cookies.set("userId", data);
+                window.location = 'profilePage.html?id=' + data;
         });
     }
-}
+};
+
+//redirect to profile page
+function profileLink(){
+    window.location = 'profilePage.html?id=' + Cookies.get("userId");
+};
 
 //get Home Page
 function loadHomePage(id)
