@@ -109,11 +109,12 @@ function searchModal(){
     // populate domain field
     
     var domainSelect = $(".search-form-domain");
+    var areaSelect = $(".search-form-area");
+    var topicSelect = $(".search-form-topic");
     var defaultOpt = document.createElement("option");
     $.get( "/CampusTalk/rest/CampusTalkAPI/getDomain" )
     .done(function( data ) {
         if(data != null){
-            debugger;
             for(var i=0; i<data.length; i++){
                 var domainDescription = data[i].domainDescription;
                 var domainId = data[i].domainId;
@@ -130,6 +131,50 @@ function searchModal(){
         allowClear: true,
         width: '100%'
     });
+    
+    areaSelect.select2({
+        placeholder: "Select Area",
+        allowClear: true,
+        width: '100%'
+    });
+    
+    topicSelect.select2({
+        placeholder: "Select Topic",
+        allowClear: true,
+        width: '100%'
+    });
+    
+    areaSelect.prop('disabled', true);
+    topicSelect.prop('disabled', true);
+    
+    $("#search-domain").change(function() {
+        //debugger;
+        areaSelect.find('option:not(:first)').remove();
+        topicSelect.find('option:not(:first)').remove();
+        areaSelect.prop('disabled', true);
+        topicSelect.prop('disabled', true);
+        if($(this).val() > 0){
+            $.get( "/CampusTalk/rest/CampusTalkAPI/getArea/" + $(this).val() )
+            .done(function( data ) {
+                if(data != null){
+                    for(var i=0; i<data.length; i++){
+                        var areaDescription = data[i].areaDescription;
+                        var areaId = data[i].areaId;
+                        var opt = document.createElement("option");
+                        opt.textContent = areaDescription;
+                        opt.value = areaId;
+                        areaSelect.append(opt);
+                    }
+                }
+            });
+            areaSelect.prop('disabled', false);
+            $("select.search-form-area").select2({
+                placeholder: "Select Area",
+                allowClear: true,
+                width: '100%'
+            });
+        }
+      });
     
     /*
     $(".select2-selection--multiple").css( "background-color", "#f8f8f8" );

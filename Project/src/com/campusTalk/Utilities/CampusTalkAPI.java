@@ -335,6 +335,7 @@ public class CampusTalkAPI{
 	
 	@GET
 	@Path("getArea/{param}")
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response getArea(@PathParam("param") String domainId)
 	{
 		List<Area> areaArr = new ArrayList<Area>();
