@@ -105,6 +105,35 @@ function searchModal(){
             searchModal.style.display = "none";
         }
     }
+    
+    // populate domain field
+    
+    var domainSelect = $(".search-form-domain");
+    var defaultOpt = document.createElement("option");
+    $.get( "/CampusTalk/rest/CampusTalkAPI/getDomain" )
+    .done(function( data ) {
+        if(data != null){
+            debugger;
+            for(var i=0; i<data.length; i++){
+                var domainDescription = data[i].domainDescription;
+                var domainId = data[i].domainId;
+                var opt = document.createElement("option");
+                opt.textContent = domainDescription;
+                opt.value = domainId;
+                domainSelect.append(opt);
+            }
+        }
+    });
+    
+    domainSelect.select2({
+        placeholder: "Select Domain",
+        allowClear: true,
+        width: '100%'
+    });
+    
+    /*
+    $(".select2-selection--multiple").css( "background-color", "#f8f8f8" );
+    $(".select2-selection--multiple").css( "border", "1px solid blue" );*/
 };
 
 //Load posts and replies dynamically

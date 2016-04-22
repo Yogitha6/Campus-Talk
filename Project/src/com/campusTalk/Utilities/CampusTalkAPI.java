@@ -322,6 +322,7 @@ public class CampusTalkAPI{
 	
 	@GET
 	@Path("getDomain")
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response getDomain()
 	{
 		List<Domain> domainArr = new ArrayList<Domain>();
