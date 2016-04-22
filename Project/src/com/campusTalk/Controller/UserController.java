@@ -46,7 +46,8 @@ public class UserController {
 		return statusCode;
 	}
 	
-	public void createUser(String userDetails) {
+	public int createUser(String userDetails) {
+		int userId = 0;
 		try {
 				JSONObject json = new JSONObject(userDetails);
 				String firstName = json.getString("firstName");
@@ -55,16 +56,22 @@ public class UserController {
 				String password = json.getString("password");
 				String major = json.getString("major");
 				String topics = json.getString("topics");
+				topics = topics.substring(1, topics.length() - 1);
 				//System.out.println("Forum Controller createForum - userId, topicId, forumDescription, dateCreated "+userId+" "+topicId+" "+forumDescription+" "+dateCreated);
 				User user = new User(firstName, lastName, emailId, password, major);
 				dbproxy.saveUserDetails(user);
-				for (String topic: topics.split(",")){
-			         UserTopic userTopic = new UserTopic(user.getUserId(), Integer.parseInt(topic));
-			         dbproxy.saveUserTopic(userTopic);
-			    }
+				if (topics.length() > 2){
+					for (String topic: topics.split(",")){
+						topic = topic.substring(1, topic.length() - 1);
+				        UserTopic userTopic = new UserTopic(user.getUserId(), Integer.parseInt(topic));
+				        dbproxy.saveUserTopic(userTopic);
+				    }
+				}
+				userId = user.getUserId();
 				
 			} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		return userId;
 	}
 }

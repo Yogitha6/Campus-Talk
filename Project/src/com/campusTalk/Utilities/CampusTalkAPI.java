@@ -291,7 +291,7 @@ public class CampusTalkAPI{
 	@POST
 	@Path("createUser")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void createUser(InputStream input)
+	public Response createUser(InputStream input)
 	{
 		StringBuilder strBuilder = new StringBuilder();		
 		UserController userController = new UserController();
@@ -305,6 +305,7 @@ public class CampusTalkAPI{
 			e.printStackTrace();
 		}
 		//System.out.println("Data Received: " + strBuilder.toString());
-		userController.createUser(strBuilder.toString());	
+		int userId = userController.createUser(strBuilder.toString());
+		return Response.ok( Integer.toString(userId) ).build();
 	}
 }

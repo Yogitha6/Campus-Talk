@@ -383,16 +383,31 @@ function signup(){
     var password = $("#form-password-signup").val();
     var major = $("#form-major").val()
     var topics = $(".form-topic").val();
-    $.ajax({
-        url : "/CampusTalk/rest/CampusTalkAPI/createUser",
-            datatype:'json',
-            type: "post",
-            contentType: "application/json",
-            data: JSON.stringify({firstName: firstName, lastName: lastName, emailId: emailId, password: password, major: major, topics: topics}),
-        }).done(function(data){
-            //console.log("user Id, topic Id and forumDescription sent to server");
-            $("#newForumModal").css("display","none");
+    
+    var emailRegExp = /^([a-zA-Z0-9._`-]{4})+@colorado.edu$/;
+    var passwordRegExp = /^[a-zA-Z0-9._`-]{4,}$/;
+    //validating username and password
+    if(emailId.match(emailRegExp)==null)
+    {
+        $("#form-email").notify("You can Login only with your colorado.edu email Id");
+    }
+    else if(password.match(passwordRegExp)==null)
+    {
+        $("#form-password-signup").notify("Invalid password");
+    }
+    else{
+        $.ajax({
+            url : "/CampusTalk/rest/CampusTalkAPI/createUser",
+                datatype:'json',
+                type: "post",
+                contentType: "application/json",
+                data: JSON.stringify({firstName: firstName, lastName: lastName, emailId: emailId, password: password, major: major, topics: topics}),
+            }).done(function(data){
+                alert(data);
+                //console.log("user Id, topic Id and forumDescription sent to server");
+                $("#newForumModal").css("display","none");
         });
+    }
 }
 
 //get Home Page
