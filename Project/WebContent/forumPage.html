@@ -41,7 +41,7 @@
 	<!-- Top content -->
 
 	<button type="submit" class="btn">Home</button>
-	<button type="submit" class="btn">Search</button>
+	<button type="submit" class="btn" id="searchBtn">Search</button>
 	<button type="submit" class="btn" onclick='profileLink();'>Profile</button>
 	<button type="submit" class="btn">Logout</button>
 	
@@ -107,6 +107,48 @@
 			</div>
 		</div>		
 	</div>
+	
+	<div id="searchModal" class="modal">
+        <!-- New Forum Modal content -->
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close search-close-button" id="searchCloseButton2">&times; </button>
+	                <h4 class="modal-title">Search</h4>
+	            </div>
+	            <div class="modal-body">    
+	                <form>
+	                    <div class="form-group">
+                            <select class="search-form-domain form-control select2 req_place">
+                                            
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <select class="search-form-area form-control select2 req_place">
+                                            
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <select class="search-form-topic form-control select2 req_place">
+                                            
+                            </select>
+                        </div>
+                        
+	                    
+	                    <div style="margin-top: 20px; text-align: center;">
+                            <button name="Post" class="btn" onclick=createPost()>Search By User</button>
+                            <button name="Cancel" id="closePost" class="btn">Search By Forum</button>
+                        </div>
+	                </form> 
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default search-close-button" id="searchCloseButton1">Close</button>
+	            </div>
+            </div>      
+        </div>
+    </div>
 
     
 	<!-- Footer -->

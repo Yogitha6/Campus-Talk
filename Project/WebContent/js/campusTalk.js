@@ -76,7 +76,36 @@ function loadForumPage(){
 			forumModal.style.display = "none";
 		}
 	}
+	
+	
+	//setup search modal
+	searchModal();
+	
 }
+
+//setup search modal
+function searchModal(){
+    var searchModal = document.getElementById('searchModal');
+    var searchBtn = document.getElementById('searchBtn');
+    searchBtn.onclick = function() {              
+        searchModal.style.display = "block";
+        //populateTopics();
+    }
+    var btnCloseSearch1 = document.getElementById('searchCloseButton1');
+    btnCloseSearch1.onclick = function() {
+        searchModal.style.display = "none";
+    }
+    var btnCloseSearch2 = document.getElementById('searchCloseButton2');
+    btnCloseSearch2.onclick = function() {
+        searchModal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == searchModal) {
+            searchModal.style.display = "none";
+        }
+    }
+};
 
 //Load posts and replies dynamically
 function loadPostsAndReplies(){
