@@ -343,4 +343,16 @@ public class CampusTalkAPI{
 		String areas = new Gson().toJson(areaArr);
         return Response.ok(areas).build();
 	}
+	
+	@GET
+	@Path("getTopics/{param}")
+	public Response getTopicArea(@PathParam("param") String areaId)
+	{
+		List<Topic> topicArr = new ArrayList<Topic>();
+		ForumController forumController = new ForumController();
+		topicArr = forumController.getTopic(Integer.parseInt(areaId));
+		//System.out.println("No of topics = "+topicArr.size());
+		String topics = new Gson().toJson(topicArr);
+        return Response.ok(topics).build();
+	}
 }

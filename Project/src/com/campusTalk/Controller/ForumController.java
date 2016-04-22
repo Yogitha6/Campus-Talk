@@ -122,5 +122,15 @@ public class ForumController {
 		}
 		return areaArr;
 	}
+
+	public List<Topic> getTopic(int areaId) {
+		List<Topic> topicArr = new ArrayList<Topic>();
+		try {
+				topicArr = dbproxy.getTopics( areaId );
+			} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return topicArr;
+	}
 	
 }
