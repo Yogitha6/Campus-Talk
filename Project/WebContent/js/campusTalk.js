@@ -173,6 +173,38 @@ function searchModal(){
                 allowClear: true,
                 width: '100%'
             });
+            $("select.search-form-topic").select2({
+                placeholder: "Select Topic",
+                allowClear: true,
+                width: '100%'
+            });
+        }
+      });
+    
+    $("#search-area").change(function() {
+        //debugger;
+        topicSelect.find('option:not(:first)').remove();
+        topicSelect.prop('disabled', true);
+        if($(this).val() > 0){
+            $.get( "/CampusTalk/rest/CampusTalkAPI/getTopics/" + $(this).val() )
+            .done(function( data ) {
+                if(data != null){
+                    for(var i=0; i<data.length; i++){
+                        var topicDescription = data[i].topicDescription;
+                        var topicId = data[i].topicId;
+                        var opt = document.createElement("option");
+                        opt.textContent = topicDescription;
+                        opt.value = topicId;
+                        topicSelect.append(opt);
+                    }
+                }
+            });
+            topicSelect.prop('disabled', false);
+            $("select.search-form-topic").select2({
+                placeholder: "Select Topic",
+                allowClear: true,
+                width: '100%'
+            });
         }
       });
     
