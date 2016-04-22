@@ -23,6 +23,7 @@
 		<mapping class="com.campusTalk.model.User"/>
 		<mapping resource="UserTopic.hbm.xml"/>
 		<mapping resource="Domain.hbm.xml"/>
+		<mapping resource="Area.hbm.xml"/>
 	
 	</session-factory>
 </hibernate-configuration>

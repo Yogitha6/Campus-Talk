@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+ 
+ <hibernate-mapping>
+    <class name="com.campusTalk.model.Area" table="area">
+    <id name="areaId" column="areaId" type="int">
+        <generator class="native"/>
+    </id>
+    <property name="areaDescription" column="description" type="string"></property>
+    <property name="domainId" column="domainId" type="int"></property>
+    </class>
+ </hibernate-mapping>

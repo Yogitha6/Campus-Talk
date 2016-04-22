@@ -112,5 +112,15 @@ public class ForumController {
 		}
 		return domainArr;
 	}
+
+	public List<Area> getArea(int domainId) {
+		List<Area> areaArr = new ArrayList<Area>();
+		try {
+				areaArr = dbproxy.getAreas( domainId );
+			} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return areaArr;
+	}
 	
 }
