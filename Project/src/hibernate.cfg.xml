@@ -22,6 +22,7 @@
 		<mapping class="com.campusTalk.model.Event"/>
 		<mapping class="com.campusTalk.model.User"/>
 		<mapping resource="UserTopic.hbm.xml"/>
+		<mapping resource="Domain.hbm.xml"/>
 	
 	</session-factory>
 </hibernate-configuration>

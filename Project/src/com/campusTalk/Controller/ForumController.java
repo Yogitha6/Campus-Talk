@@ -103,4 +103,14 @@ public class ForumController {
 		return topicArr;
 	}
 	
+	public List<Domain> getDomain() {
+		List<Domain> domainArr = new ArrayList<Domain>();
+		try {
+				domainArr = dbproxy.getDomains();
+			} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return domainArr;
+	}
+	
 }

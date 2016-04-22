@@ -319,4 +319,16 @@ public class CampusTalkAPI{
 		String userObject = new Gson().toJson(user);
 		return Response.ok( userObject ).build();
 	}
+	
+	@GET
+	@Path("getDomain")
+	public Response getDomain()
+	{
+		List<Domain> domainArr = new ArrayList<Domain>();
+		ForumController forumController = new ForumController();
+		domainArr = forumController.getDomain();
+		//System.out.println("No of topics = "+topicArr.size());
+		String domains = new Gson().toJson(domainArr);
+        return Response.ok(domains).build();
+	}
 }

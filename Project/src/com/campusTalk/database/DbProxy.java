@@ -127,4 +127,9 @@ public class DbProxy implements DbProxyInterface {
 		this.dbhelper.saveUserTopic(userTopic);
 		
 	}
+
+	public List<Domain> getDomains() {
+		// TODO Auto-generated method stub
+		return this.dbhelper.getDomains();
+	}
 }
