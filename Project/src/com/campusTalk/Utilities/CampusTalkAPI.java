@@ -308,4 +308,15 @@ public class CampusTalkAPI{
 		int userId = userController.createUser(strBuilder.toString());
 		return Response.ok( Integer.toString(userId) ).build();
 	}
+	
+	@GET
+	@Path("getUser/{param}")
+	public Response getUser(@PathParam("param") String userId)
+	{
+		UserController userController = new UserController();
+		User user = userController.getUser(Integer.parseInt(userId));
+		user.setPassword("");
+		String userObject = new Gson().toJson(user);
+		return Response.ok( userObject ).build();
+	}
 }

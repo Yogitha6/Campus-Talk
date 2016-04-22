@@ -74,4 +74,8 @@ public class UserController {
 		}
 		return userId;
 	}
+	
+	public User getUser( int userId ){
+		return dbproxy.getUser( userId );
+	}
 }
