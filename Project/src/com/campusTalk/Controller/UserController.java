@@ -1,10 +1,12 @@
 package com.campusTalk.Controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.json.*;
 
 import com.campusTalk.database.DbProxy;
+import com.campusTalk.model.Topic;
 import com.campusTalk.model.User;
 import com.campusTalk.model.UserTopic;
 
@@ -77,5 +79,9 @@ public class UserController {
 	
 	public User getUser( int userId ){
 		return dbproxy.getUser( userId );
+	}
+
+	public List<Topic> getUserInterests(int userId) {
+		return dbproxy.getUserInterests(userId);
 	}
 }

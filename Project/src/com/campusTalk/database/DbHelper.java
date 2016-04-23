@@ -531,5 +531,31 @@ public class DbHelper implements DbProxyInterface {
 			session.close();
 		}	
 		return topicArr;
+	}
+
+	public List<Topic> getUserInterests(int userId) {
+		List<Topic> topicArr = new ArrayList<Topic>();
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Query query1 = session.createQuery("select topicId from UserTopic where userId = :userId");
+			query1.setString("userId", String.valueOf(userId));
+			Query query2 = session.createQuery("from Topic where topicId in (:topicList)");
+			query2.setParameterList("topicList", query1.list());
+			topicArr = query2.list();
+			/*for(Topic topic : topicArr){
+				System.out.println("Topic Description----"+topic.getTopicDescription());
+				System.out.println("Topic Id----"+topic.getTopicId());
+			}*/
+		}catch(HibernateException e){
+			if(tx != null){
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}finally {
+			session.close();
+		}	
+		return topicArr;
 	}	
 }

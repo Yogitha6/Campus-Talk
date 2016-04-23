@@ -141,4 +141,9 @@ public class DbProxy implements DbProxyInterface {
 	public List<Topic> getTopics(int areaId) {
 		return this.dbhelper.getTopics(areaId);
 	}
+
+	public List<Topic> getUserInterests(int userId) {
+		// TODO Auto-generated method stub
+		return this.dbhelper.getUserInterests(userId);
+	}
 }

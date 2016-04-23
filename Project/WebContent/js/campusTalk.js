@@ -625,5 +625,47 @@ function getHomePageForumMemberships(id, callback)
 			}
 		});
 		}
-	}
+}
+
+function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
+function initializeProfilePage(){
+    var userId = getUrlParameter('id');
+    var sessionUserId = Cookies.get("userId");
+    if ( userId !== sessionUserId ){
+        $("#editBtn").hide();
+    }
+    if (userId){
+        $.get( "/CampusTalk/rest/CampusTalkAPI/getUser/" + userId )
+        .done(function( data ) {
+            var fullName = data.firstname + ' ' + data.lastname
+            $("#fullName").text(fullName);
+            $("#emailtext").text(data.emailId);
+            $("#major").text(data.major);
+        });
+        
+        $.get( "/CampusTalk/rest/CampusTalkAPI/getUserInterests/" + userId )
+        .done(function( data ) {
+            if(data != null){
+                for(element in data){
+                    $("#interests").append(
+                            '<li style="color:white;">' + data[element].topicDescription + '</li>');
+                }
+            }
+        });
+    }
+}
 

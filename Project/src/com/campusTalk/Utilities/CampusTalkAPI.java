@@ -311,6 +311,7 @@ public class CampusTalkAPI{
 	
 	@GET
 	@Path("getUser/{param}")
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response getUser(@PathParam("param") String userId)
 	{
 		UserController userController = new UserController();
@@ -354,6 +355,19 @@ public class CampusTalkAPI{
 		List<Topic> topicArr = new ArrayList<Topic>();
 		ForumController forumController = new ForumController();
 		topicArr = forumController.getTopic(Integer.parseInt(areaId));
+		//System.out.println("No of topics = "+topicArr.size());
+		String topics = new Gson().toJson(topicArr);
+        return Response.ok(topics).build();
+	}
+	
+	@GET
+	@Path("getUserInterests/{param}")
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public Response getUserInterests(@PathParam("param") String userId)
+	{
+		List<Topic> topicArr = new ArrayList<Topic>();
+		UserController userController = new UserController();
+		topicArr = userController.getUserInterests(Integer.parseInt(userId));
 		//System.out.println("No of topics = "+topicArr.size());
 		String topics = new Gson().toJson(topicArr);
         return Response.ok(topics).build();
