@@ -132,5 +132,15 @@ public class ForumController {
 		}
 		return topicArr;
 	}
+
+	public List<Forum> getsearchResults(int topicId) {
+		List<Forum> forumArr = new ArrayList<Forum>();
+		try {
+				forumArr = dbproxy.getsearchResults( topicId );
+			} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return forumArr;
+	}
 	
 }

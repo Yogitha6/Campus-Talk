@@ -307,7 +307,7 @@ function login()
 
 //Create forum
 function createForum()
-{			
+{   var userId = Cookies.get('userId');
 	var forumDescription = $("#forumDescription").val();
 	if(forumDescription == null || forumDescription.trim() == ""){
 		alert('Please describe forum !!');
@@ -689,3 +689,24 @@ function initializeProfilePage(){
     }
 }
 
+function initializeResultPage(){
+    var criteria = getUrlParameter('criteria');
+    var topicId = getUrlParameter('topicId');
+    var sessionUserId = Cookies.get("userId");
+    
+    if (criteria && topicId){
+        if ( criteria == "forum" ){
+            $.get( "/CampusTalk/rest/CampusTalkAPI/getSearchForums/" + topicId )
+            .done(function( data ) {
+                alert(data);
+            });
+        }
+        if ( criteria == "user" ){
+            $.get( "/CampusTalk/rest/CampusTalkAPI/getSearchUsers/" + topicId )
+            .done(function( data ) {
+                alert(data);
+            });
+        }
+    }
+    
+}
