@@ -146,6 +146,8 @@ function searchModal(){
     
     areaSelect.prop('disabled', true);
     topicSelect.prop('disabled', true);
+    $("#userSearch").hide();
+    $("#forumSearch").hide();
     
     $("#search-domain").change(function() {
         //debugger;
@@ -178,6 +180,8 @@ function searchModal(){
                 allowClear: true,
                 width: '100%'
             });
+            $("#userSearch").hide();
+            $("#forumSearch").hide();
         }
       });
     
@@ -205,9 +209,25 @@ function searchModal(){
                 allowClear: true,
                 width: '100%'
             });
+            $("#userSearch").hide();
+            $("#forumSearch").hide();
         }
       });
     
+    $("#search-topic").change(function() {
+        if($(this).val() > 0){
+            $("#userSearch").show();
+            $("#forumSearch").show();
+        }
+      });
+    $( "#userSearch" ).click(function( event ) {
+        event.preventDefault();
+        window.location.href = 'resultPage.html?criteria=user&topicId=' + $("#search-topic").val();
+    });
+    $( "#forumSearch" ).click(function( event ) {
+        event.preventDefault();
+        window.location.href = 'resultPage.html?criteria=forum&topicId=' + $("#search-topic").val();
+    });
     /*
     $(".select2-selection--multiple").css( "background-color", "#f8f8f8" );
     $(".select2-selection--multiple").css( "border", "1px solid blue" );*/
