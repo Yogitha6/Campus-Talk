@@ -578,6 +578,13 @@ function loadHomePage(url)
 {
   console.log(url);
   var id = url.substr(url.length-1,1);
+  
+  $("#homePageref").attr("href", "HomePage.html?id="+id);
+  $("#searchPageref").attr("href","resultPage.html?id="+id);
+  $("#profilePageref").attr("href","profilePage.html?id="+id);
+  getUserNameforHomePage(id, function(result){
+	  $("#userName").text(result.firstname+" "+result.lastname);
+  });
   getHomePageForumContents(id, function(result){
 	  //get the data and set the div contents
 	  console.log(result[0]); 
@@ -622,7 +629,15 @@ function loadHomePage(url)
 		  }
   });
 }
-
+function getUserNameforHomePage(id, callback)
+{
+	var userId = id;
+	 $.get( "/CampusTalk/rest/CampusTalkAPI/getUser/" + userId )
+     .done(function( data ) {
+    	 console.log(data);
+    	 callback(data);
+     });
+}
 function getHomePageForumContents(id, callback)
 {
 	var userId = id;
