@@ -292,7 +292,7 @@ function login()
 {			
 	var username = new String(document.getElementById("form-username").value); // $("#id").val()
 	var password = new String(document.getElementById("form-password").value);
-	var emailRegExp = /^([a-zA-Z0-9._`-]{4})+@colorado.edu$/;
+	var emailRegExp =/^([a-zA-Z0-9._`-])+@colorado.edu$/;
 	var passwordRegExp = /^[a-zA-Z0-9._`-]{4,}$/;
 	//validating username and password
 	if(username.match(emailRegExp)==null)
@@ -419,28 +419,30 @@ function createPost()
 
 //Create Reply
 function createReply(postId,index)
-{		
-	var userId = Cookies.get("userId");
+{	
 	var replyDescription = $("#newReply"+index).val();
+	alert('replyDescription - '+replyDescription);
 	if(replyDescription == null || replyDescription.trim() == ""){
 		alert('Please reply !!');
+	} else {
+		//console.log('createReply - postId'+postId+'userId-'+userId+'newReply-'+replyDescription);
+		if(userId != null && postId != null && replyDescription != null)
+		{	
+			$.ajax({
+				url : "/CampusTalk/rest/CampusTalkAPI/createReply",
+				datatype:'json',
+				type: "post",
+				contentType: "application/json",
+				data: JSON.stringify({userId: userId, postId: postId, replyDescription: replyDescription}),
+			}).done(function(data){
+				//console.log("user Id, post Id and replyDescription sent to server");
+				$("#demo"+index).before('<div class ="postCls" style="margin-left:50px" id="replies'+index+'">'+replyDescription+'</div>');
+				$("#replyCount"+index).html($('[id^=replies'+index+']').length+' Reply(s)');	
+				$("#newReply"+index).val("");
+			});
+		}
 	}
-	//console.log('createReply - postId'+postId+'userId-'+userId+'newReply-'+replyDescription);
-	if(userId != null && postId != null && replyDescription != null)
-	{
-		$.ajax({
-			url : "/CampusTalk/rest/CampusTalkAPI/createReply",
-			datatype:'json',
-			type: "post",
-			contentType: "application/json",
-			data: JSON.stringify({userId: userId, postId: postId, replyDescription: replyDescription}),
-		}).done(function(data){
-			//console.log("user Id, post Id and replyDescription sent to server");
-			$("#demo"+index).before('<div class ="postCls" style="margin-left:50px" id="replies'+index+'">'+replyDescription+'</div>');
-			$("#replyCount"+index).html($('[id^=replies'+index+']').length+' Reply(s)');	
-			$("#newReply"+index).val(" ");
-		});
-	}
+	
 }
 
 //Get posts and corresponding replies
@@ -560,7 +562,7 @@ function signup(){
     var major = $("#form-major").val()
     var topics = $(".form-topic").val();
     
-    var emailRegExp = /^([a-zA-Z0-9._`-]{4})+@colorado.edu$/;
+    var emailRegExp = /^([a-zA-Z0-9._`-])+@colorado.edu$/;
     var passwordRegExp = /^[a-zA-Z0-9._`-]{4,}$/;
     //validating username and password
     if(emailId.match(emailRegExp)==null)
@@ -616,9 +618,9 @@ function loadHomePage()
 	  $.each(result, function(index, val){
 		  var url = "forumPage.html";
 		  url = url+"?id="+val.forumId;
-		  var forumName = "forumName";
+		  var forumName = "";
 		  $("#ForumPosts").append('<center><div class=\"col-lg-12 text-center\">');
-		  $("#ForumPosts").append('<h4 class="'+val.forumId+'">'+forumName+'</h4>');
+		  $("#ForumPosts").append('<h4 class="'+val.forumId+' "style="font-weight: bold" >'+forumName+'</h4>');
 		  var forumId = val.forumId;
 		  $.get("/CampusTalk/rest/CampusTalkAPI/getForum/"+ forumId)
 			.done(function(data){
