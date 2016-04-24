@@ -419,28 +419,30 @@ function createPost()
 
 //Create Reply
 function createReply(postId,index)
-{		
-	var userId = Cookies.get("userId");
+{	
 	var replyDescription = $("#newReply"+index).val();
+	alert('replyDescription - '+replyDescription);
 	if(replyDescription == null || replyDescription.trim() == ""){
 		alert('Please reply !!');
+	} else {
+		//console.log('createReply - postId'+postId+'userId-'+userId+'newReply-'+replyDescription);
+		if(userId != null && postId != null && replyDescription != null)
+		{	
+			$.ajax({
+				url : "/CampusTalk/rest/CampusTalkAPI/createReply",
+				datatype:'json',
+				type: "post",
+				contentType: "application/json",
+				data: JSON.stringify({userId: userId, postId: postId, replyDescription: replyDescription}),
+			}).done(function(data){
+				//console.log("user Id, post Id and replyDescription sent to server");
+				$("#demo"+index).before('<div class ="postCls" style="margin-left:50px" id="replies'+index+'">'+replyDescription+'</div>');
+				$("#replyCount"+index).html($('[id^=replies'+index+']').length+' Reply(s)');	
+				$("#newReply"+index).val("");
+			});
+		}
 	}
-	//console.log('createReply - postId'+postId+'userId-'+userId+'newReply-'+replyDescription);
-	if(userId != null && postId != null && replyDescription != null)
-	{
-		$.ajax({
-			url : "/CampusTalk/rest/CampusTalkAPI/createReply",
-			datatype:'json',
-			type: "post",
-			contentType: "application/json",
-			data: JSON.stringify({userId: userId, postId: postId, replyDescription: replyDescription}),
-		}).done(function(data){
-			//console.log("user Id, post Id and replyDescription sent to server");
-			$("#demo"+index).before('<div class ="postCls" style="margin-left:50px" id="replies'+index+'">'+replyDescription+'</div>');
-			$("#replyCount"+index).html($('[id^=replies'+index+']').length+' Reply(s)');	
-			$("#newReply"+index).val(" ");
-		});
-	}
+	
 }
 
 //Get posts and corresponding replies
