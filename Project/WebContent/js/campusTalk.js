@@ -360,15 +360,12 @@ function sendEmail()
 function createForum()
 {   var userId = Cookies.get('userId');
 	var forumDescription = $("#forumDescription").val();
-	if(forumDescription == null || forumDescription.trim() == ""){
-		alert('Please describe forum !!');
-	}
 	var topicId = $('#selectTopic').val();
-	if(topicId == null || topicId == 0){
-		alert('Please select a topic !!');
-	}
-	//alert('userId-'+userId+' topicId-'+topicId+' topic value-'+ $("#selectTopic :selected").text()+' forumDescription-'+forumDescription);
-	if(userId != null && topicId != null && forumDescription != null)
+	if(forumDescription == null || forumDescription.trim() == ""){
+		$("#forumDescription").notify('Please describe forum !!');
+	} else if (topicId == null || topicId == 0){
+		$("#selectTopic").notify('Please select a topic !!');
+	} else if(userId != null && topicId != null && forumDescription != null)
 	{
 		$.ajax({
 			url : "/CampusTalk/rest/CampusTalkAPI/createForum",
@@ -378,7 +375,6 @@ function createForum()
 			data: JSON.stringify({userId: userId, topicId: topicId, forumDescription: forumDescription}),
 		}).done(function(data){
 			//console.log("user Id, topic Id and forumDescription sent to server");
-			debugger;
 			$("#newForumModal").css("display","none");
 			window.location = "forumPage.html?id="+data;
 		});
@@ -409,8 +405,6 @@ function unsubscribe()
 //Subscribe to a forum
 function subscribe()
 {	
-	alert(userId);
-	alert(forumId);
 	if(userId != null && forumId != null)
 	{
 		$.ajax({
@@ -436,7 +430,7 @@ function createPost()
 	var userId = Cookies.get("userId");
 	var postDescription = $("#postDescription").val();
 	if(postDescription == null || postDescription.trim() == ""){
-		alert('Please describe post !!');
+		$("#postDescription").notify('Please describe post !!');
 	}
 	if(userId != null && forumId != null && postDescription != null)
 	{
@@ -459,7 +453,7 @@ function createReply(postId,index)
 {	
 	var replyDescription = $("#newReply"+index).val();
 	if(replyDescription == null || replyDescription.trim() == ""){
-		alert('Please reply !!');
+		$("#newReply"+index).notify('Please reply !!');
 	} else {
 		//console.log('createReply - postId'+postId+'userId-'+userId+'newReply-'+replyDescription);
 		if(userId != null && postId != null && replyDescription != null)
