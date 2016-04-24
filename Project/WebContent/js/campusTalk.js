@@ -76,162 +76,7 @@ function loadForumPage(){
 			forumModal.style.display = "none";
 		}
 	}
-	
-	
-	//setup search modal
-	searchModal();
-	
 }
-
-//setup search modal
-function searchModal(){
-    var searchModal = document.getElementById('searchModal');
-    var searchBtn = document.getElementById('searchBtn');
-    searchBtn.onclick = function() {              
-        searchModal.style.display = "block";
-        //populateTopics();
-    }
-    var btnCloseSearch1 = document.getElementById('searchCloseButton1');
-    btnCloseSearch1.onclick = function() {
-        searchModal.style.display = "none";
-    }
-    var btnCloseSearch2 = document.getElementById('searchCloseButton2');
-    btnCloseSearch2.onclick = function() {
-        searchModal.style.display = "none";
-    }
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == searchModal) {
-            searchModal.style.display = "none";
-        }
-    }
-    
-    // populate domain field
-    
-    var domainSelect = $(".search-form-domain");
-    var areaSelect = $(".search-form-area");
-    var topicSelect = $(".search-form-topic");
-    var defaultOpt = document.createElement("option");
-    $.get( "/CampusTalk/rest/CampusTalkAPI/getDomain" )
-    .done(function( data ) {
-        if(data != null){
-            for(var i=0; i<data.length; i++){
-                var domainDescription = data[i].domainDescription;
-                var domainId = data[i].domainId;
-                var opt = document.createElement("option");
-                opt.textContent = domainDescription;
-                opt.value = domainId;
-                domainSelect.append(opt);
-            }
-        }
-    });
-    
-    domainSelect.select2({
-        placeholder: "Select Domain",
-        allowClear: true,
-        width: '100%'
-    });
-    
-    areaSelect.select2({
-        placeholder: "Select Area",
-        allowClear: true,
-        width: '100%'
-    });
-    
-    topicSelect.select2({
-        placeholder: "Select Topic",
-        allowClear: true,
-        width: '100%'
-    });
-    
-    areaSelect.prop('disabled', true);
-    topicSelect.prop('disabled', true);
-    $("#userSearch").hide();
-    $("#forumSearch").hide();
-    
-    $("#search-domain").change(function() {
-        //debugger;
-        areaSelect.find('option:not(:first)').remove();
-        topicSelect.find('option:not(:first)').remove();
-        areaSelect.prop('disabled', true);
-        topicSelect.prop('disabled', true);
-        if($(this).val() > 0){
-            $.get( "/CampusTalk/rest/CampusTalkAPI/getArea/" + $(this).val() )
-            .done(function( data ) {
-                if(data != null){
-                    for(var i=0; i<data.length; i++){
-                        var areaDescription = data[i].areaDescription;
-                        var areaId = data[i].areaId;
-                        var opt = document.createElement("option");
-                        opt.textContent = areaDescription;
-                        opt.value = areaId;
-                        areaSelect.append(opt);
-                    }
-                }
-            });
-            areaSelect.prop('disabled', false);
-            $("select.search-form-area").select2({
-                placeholder: "Select Area",
-                allowClear: true,
-                width: '100%'
-            });
-            $("select.search-form-topic").select2({
-                placeholder: "Select Topic",
-                allowClear: true,
-                width: '100%'
-            });
-            $("#userSearch").hide();
-            $("#forumSearch").hide();
-        }
-      });
-    
-    $("#search-area").change(function() {
-        //debugger;
-        topicSelect.find('option:not(:first)').remove();
-        topicSelect.prop('disabled', true);
-        if($(this).val() > 0){
-            $.get( "/CampusTalk/rest/CampusTalkAPI/getTopics/" + $(this).val() )
-            .done(function( data ) {
-                if(data != null){
-                    for(var i=0; i<data.length; i++){
-                        var topicDescription = data[i].topicDescription;
-                        var topicId = data[i].topicId;
-                        var opt = document.createElement("option");
-                        opt.textContent = topicDescription;
-                        opt.value = topicId;
-                        topicSelect.append(opt);
-                    }
-                }
-            });
-            topicSelect.prop('disabled', false);
-            $("select.search-form-topic").select2({
-                placeholder: "Select Topic",
-                allowClear: true,
-                width: '100%'
-            });
-            $("#userSearch").hide();
-            $("#forumSearch").hide();
-        }
-      });
-    
-    $("#search-topic").change(function() {
-        if($(this).val() > 0){
-            $("#userSearch").show();
-            $("#forumSearch").show();
-        }
-      });
-    $( "#userSearch" ).click(function( event ) {
-        event.preventDefault();
-        window.location.href = 'resultPage.html?criteria=user&topicId=' + $("#search-topic").val();
-    });
-    $( "#forumSearch" ).click(function( event ) {
-        event.preventDefault();
-        window.location.href = 'resultPage.html?criteria=forum&topicId=' + $("#search-topic").val();
-    });
-    /*
-    $(".select2-selection--multiple").css( "background-color", "#f8f8f8" );
-    $(".select2-selection--multiple").css( "border", "1px solid blue" );*/
-};
 
 //Load posts and replies dynamically
 function loadPostsAndReplies(){
@@ -256,16 +101,18 @@ function loadPostsAndReplies(){
 				$("#blogs").append($('<div>')
 						.append('<div class="img1"><img class="img-circle" src="./img/profileIcon.jpg" width="30px" height="30px"/></div>')
 						.append('<div data-toggle="collapse" data-target="#demo'+i+'" class="postText" onclick ="toggle('+i+');" id="postText">'+postDescription+'</div> <img data-toggle="collapse" class ="allreplies" data-target="#demo'+i+'" src="./img/close.png" onclick ="toggle('+i+');" id ="collapse'+i+'" title ="Click to view replies"/>')
-						.append('<div id="noOfRepliesInfo" data-toggle="collapse" data-target="#demo'+i+'" onclick ="toggle('+i+');" class="noOfRepliesInfo"><a href"#" title ="Click to view replies">'+replyInfo+'</a></div>')
+						.append('<div id="noOfRepliesInfo" data-toggle="collapse" data-target="#demo'+i+'" onclick ="toggle('+i+');" class="noOfRepliesInfo"><a href"#" id ="replyCount'+i+'" title ="Click to view replies">'+replyInfo+'</a></div>')
 						.append('<div id="postCreator" class="postCreator">'+postCreatorInfo+'</div>'))
 						.append('</div>'); 
 				$("#blogs").append('<div id="demo'+i+'" class="collapse" style="margin-left: 50px">');
+				
 				for (var j=0; j < noOfReplies; j++) {
-					var replyDescription = result[i].replies[j].description;
-
-					$("#demo"+i).append('<div style="font-family: monospace; border-style: outset; border-bottom-color: lightgrey;" id="replies">'+replyDescription+'-'+j+'</div>');
+					var replyDescription = result[i].replies[j].description;					
+					$("#demo"+i).append('<div class ="postCls" id="replies'+i+'">'+replyDescription+'</div>');
+				
 				}
-				$("#demo"+i).append('<div id="comment'+i+'"><div class="replyText"><input type="text" id ="newReply'+i+'" name="newReply" placeholder="Reply..." style="color: black;font-size: 15px;font-family: Times New Roman, Georgia, Serif;"/><input type="button" name="reply" value="Send" onclick=createReply(\'' + postId + '\',\'' + i + '\') class="replyBtn" /></div></div>');
+
+				$("#demo"+i).append('<div id="comment'+i+'"><div class="replyText"><input type="text" id ="newReply'+i+'" name="newReply" placeholder="Reply..." style="color: black;font-size: 15px;font-family: Times New Roman, Georgia, Serif;"/><input type="button" name="reply" value="Send" onclick=createReply("'+postId+'","'+i+'") class="replyBtn" /></div></div>');
 				$("#blogs").append('</div>');			
 			}
 			$("#blogs").append('<div class="space"></div>');
@@ -300,14 +147,13 @@ function login()
 			data: JSON.stringify({name: username, pwd: password}),
 		}).done(function(data){
 			//console.log("login credentials have been sent for authorization");
-			window.location = 'HomePage.html';
 		});
 	}
 }
 
 //Create forum
 function createForum()
-{   var userId = Cookies.get('userId');
+{			
 	var forumDescription = $("#forumDescription").val();
 	if(forumDescription == null || forumDescription.trim() == ""){
 		alert('Please describe forum !!');
@@ -417,8 +263,10 @@ function createReply(postId,index)
 			data: JSON.stringify({userId: userId, postId: postId, replyDescription: replyDescription}),
 		}).done(function(data){
 			//console.log("user Id, post Id and replyDescription sent to server");
+			$("#demo"+index).before('<div class ="postCls" style="margin-left:50px" id="replies'+index+'">'+replyDescription+'</div>');
+			$("#replyCount"+index).html($('[id^=replies'+index+']').length+' Reply(s)');	
+			$("#newReply"+index).val(" ");
 		});
-
 	}
 }
 
@@ -503,210 +351,4 @@ function populateTopics(){
 			}
 		}
 	});
-}
-
-//Signup Page JavaScript
-function initializeTopics(){
-    var select = $(".form-topic")
-    var defaultOpt = document.createElement("option");
-    getTopics(function(result){
-        if(result != null){
-            for(var i=0;i<result.length;i++){
-                var topicDescription = result[i].topicDescription;
-                var topicId = result[i].topicId;
-                var opt = document.createElement("option");
-                opt.textContent = topicDescription;
-                opt.value = topicId;
-                select.append(opt);
-            }
-        }
-    });
-    
-    $(".form-topic").select2({
-        placeholder: "Select Topic Interested In",
-        allowClear: true,
-        width: '100%'
-    });
-    $(".select2-selection--multiple").css( "background-color", "#f8f8f8" );
-    $(".select2-selection--multiple").css( "border", "1px solid blue" );
-};
-
-function signup(){
-    var firstName = $("#form-first-name").val();
-    var lastName = $("#form-last-name").val();
-    var emailId = $("#form-email").val();
-    var password = $("#form-password-signup").val();
-    var major = $("#form-major").val()
-    var topics = $(".form-topic").val();
-    
-    var emailRegExp = /^([a-zA-Z0-9._`-]{4})+@colorado.edu$/;
-    var passwordRegExp = /^[a-zA-Z0-9._`-]{4,}$/;
-    //validating username and password
-    if(emailId.match(emailRegExp)==null)
-    {
-        $("#form-email").notify("You can Login only with your colorado.edu email Id");
-    }
-    else if(password.match(passwordRegExp)==null)
-    {
-        $("#form-password-signup").notify("Invalid password");
-    }
-    else{
-        $.ajax({
-            url : "/CampusTalk/rest/CampusTalkAPI/createUser",
-                datatype:'json',
-                type: "post",
-                contentType: "application/json",
-                data: JSON.stringify({firstName: firstName, lastName: lastName, emailId: emailId, password: password, major: major, topics: topics}),
-            }).done(function(data){
-                Cookies.set("userId", data);
-                window.location = 'profilePage.html?id=' + data;
-        });
-    }
-};
-
-//redirect to profile page
-function profileLink(){
-    window.location = 'profilePage.html?id=' + Cookies.get("userId");
-};
-
-//get Home Page
-function loadHomePage(id)
-{			
-  getHomePageForumContents(id, function(result){
-	  //get the data and set the div contents
-	  console.log(result[0]);
-	  
-  }
-
-  );
-  getHomePageEventConents(id, function(result){
-	  //get the even data and set the div contents
-	  console.log(result[0]);
-  }
-  );
-  getHomePageForumMemberships(id, function(result){
-	  //get the person forum memberships and set the div contents
-	  console.log(result[0]);
-  });
-}
-
-function getHomePageForumContents(id, callback)
-{
-	var userId = id;
-	if(userId != null)
-	{
-		$.ajax({
-			url : "/CampusTalk/rest/CampusTalkAPI/HomePage_Forums",
-			datatype:'json',
-			type: "post",
-			contentType: "application/json",
-			data: JSON.stringify({userId: userId}),
-			success: function(data){
-				console.log("Getting the Home Page Posts from Forums");
-				callback(data);
-			}
-		});
-	}
-}
-
-function getHomePageEventConents(id, callback)
-{
-	var userId = id;
-	if(userId != null)
-		{
-		$.ajax({
-			url : "/CampusTalk/rest/CampusTalkAPI/HomePage_Events",
-			datatype:'json',
-			type: "post",
-			contentType: "application/json",
-			data: JSON.stringify({userId: userId}),
-			success: function(data){
-				console.log("Getting the Home Page Posts from Forums");
-				callback(data);
-			}
-		});
-		}
-	}
-
-function getHomePageForumMemberships(id, callback)
-{
-	var userId = id;
-	if(userId != null)
-		{
-		$.ajax({
-			url : "/CampusTalk/rest/CampusTalkAPI/HomePage_ForumMemberships",
-			datatype:'json',
-			type: "post",
-			contentType: "application/json",
-			data: JSON.stringify({userId: userId}),
-			success: function(data){
-				console.log("Getting the Home Page Posts from Forums");
-				callback(data);
-			}
-		});
-		}
-}
-
-function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-};
-
-function initializeProfilePage(){
-    var userId = getUrlParameter('id');
-    var sessionUserId = Cookies.get("userId");
-    if ( userId !== sessionUserId ){
-        $("#editBtn").hide();
-    }
-    if (userId){
-        $.get( "/CampusTalk/rest/CampusTalkAPI/getUser/" + userId )
-        .done(function( data ) {
-            var fullName = data.firstname + ' ' + data.lastname
-            $("#fullName").text(fullName);
-            $("#emailtext").text(data.emailId);
-            $("#major").text(data.major);
-        });
-        
-        $.get( "/CampusTalk/rest/CampusTalkAPI/getUserInterests/" + userId )
-        .done(function( data ) {
-            if(data != null){
-                for(element in data){
-                    $("#interests").append(
-                            '<li style="color:white;">' + data[element].topicDescription + '</li>');
-                }
-            }
-        });
-    }
-}
-
-function initializeResultPage(){
-    var criteria = getUrlParameter('criteria');
-    var topicId = getUrlParameter('topicId');
-    var sessionUserId = Cookies.get("userId");
-    
-    if (criteria && topicId){
-        if ( criteria == "forum" ){
-            $.get( "/CampusTalk/rest/CampusTalkAPI/getSearchForums/" + topicId )
-            .done(function( data ) {
-                alert(data);
-            });
-        }
-        if ( criteria == "user" ){
-            $.get( "/CampusTalk/rest/CampusTalkAPI/getSearchUsers/" + topicId )
-            .done(function( data ) {
-                alert(data);
-            });
-        }
-    }
-    
 }
