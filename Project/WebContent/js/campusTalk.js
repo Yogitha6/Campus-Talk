@@ -87,7 +87,8 @@ function loadForumPage(){
 function searchModal(){
     var searchModal = document.getElementById('searchModal');
     var searchBtn = document.getElementById('searchBtn');
-    searchBtn.onclick = function() {              
+    searchBtn.onclick = function( event ) {
+        event.preventDefault();
         searchModal.style.display = "block";
         //populateTopics();
     }
@@ -563,13 +564,14 @@ function signup(){
                 data: JSON.stringify({firstName: firstName, lastName: lastName, emailId: emailId, password: password, major: major, topics: topics}),
             }).done(function(data){
                 Cookies.set("userId", data);
-                window.location = 'profilePage.html?id=' + data;
+                window.location = 'HomePage.html?id=' + data;;
         });
     }
 };
 
 //redirect to profile page
 function profileLink(){
+    debugger;
     window.location = 'profilePage.html?id=' + Cookies.get("userId");
 };
 
@@ -577,7 +579,8 @@ function profileLink(){
 function loadHomePage(url)
 {
   console.log(url);
-  var id = url.substr(url.length-1,1);
+  var id = getUrlParameter('id');;
+  console.log(id);
   getUserNameforHomePage(id, function(result){
 	  $("#userName").text(result.firstname+" "+result.lastname);
   });
