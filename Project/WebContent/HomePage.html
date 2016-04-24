@@ -201,7 +201,15 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
+	<script>
+	$(document).ready(function(){
+		var url = window.location.href; 
+		var id = url.substr(url.length-1,1);
+	  	$("#homePageref").attr("href", "HomePage.html?id="+id);
+	  	$("#searchPageref").attr("href","resultPage.html?id="+id);
+	  	$("#profilePageref").attr("href","profilePage.html?id="+id);
+	}
+	);
+	</script>
 </body>
-
 </html>

@@ -578,10 +578,6 @@ function loadHomePage(url)
 {
   console.log(url);
   var id = url.substr(url.length-1,1);
-  
-  $("#homePageref").attr("href", "HomePage.html?id="+id);
-  $("#searchPageref").attr("href","resultPage.html?id="+id);
-  $("#profilePageref").attr("href","profilePage.html?id="+id);
   getUserNameforHomePage(id, function(result){
 	  $("#userName").text(result.firstname+" "+result.lastname);
   });
