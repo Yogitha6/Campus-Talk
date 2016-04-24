@@ -292,7 +292,7 @@ function login()
 {			
 	var username = new String(document.getElementById("form-username").value); // $("#id").val()
 	var password = new String(document.getElementById("form-password").value);
-	var emailRegExp = /^([a-zA-Z0-9._`-]{4})+@colorado.edu$/;
+	var emailRegExp =/^([a-zA-Z0-9._`-])+@colorado.edu$/;
 	var passwordRegExp = /^[a-zA-Z0-9._`-]{4,}$/;
 	//validating username and password
 	if(username.match(emailRegExp)==null)
@@ -562,7 +562,7 @@ function signup(){
     var major = $("#form-major").val()
     var topics = $(".form-topic").val();
     
-    var emailRegExp = /^([a-zA-Z0-9._`-]{4})+@colorado.edu$/;
+    var emailRegExp = /^([a-zA-Z0-9._`-])+@colorado.edu$/;
     var passwordRegExp = /^[a-zA-Z0-9._`-]{4,}$/;
     //validating username and password
     if(emailId.match(emailRegExp)==null)
