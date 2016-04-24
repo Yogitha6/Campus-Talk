@@ -634,6 +634,9 @@ function loadHomePage()
 		  	.append('</div></center>');
 		  }
   });
+  
+//setup search modal
+  searchModal();
 }
 
 function getforumNameById(id, callback)
@@ -752,6 +755,7 @@ function initializeProfilePage(){
             }
         });
     }
+    searchModal();
 }
 
 function initializeResultPage(){

@@ -41,25 +41,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"> </script>
         <!-- jQuery -->
     <script src="js/jquery.js"></script>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.1/js.cookie.min.js"></script>
-    <script src="js/campusTalk.js"></script>
+    
 </head>
 
 <body>
-	<script type="text/javascript">
-	javascript:loadHomePage();
-	</script>
+	
     <div class="brand">Campus Talk</div>
     <div class="address-bar">Focus on Collaboration instead of Competition</div>
 
     <!-- Top content -->
 
     <a href="HomePage.html"><button type="submit" class="btn">Home</button></a>
-    <a href="resultPage.html"><button type="submit" class="btn">Search</button></a>
-    <a href="profilePage.html"><button type="submit" class="btn" onclick='profileLink();'>Profile</button></a>
+    <button type="submit" class="btn" id="searchBtn" >Search</button>
+    <button type="submit" class="btn" onclick='profileLink();'>Profile</button>
     <a href="landingPage.html"><button type="submit" class="btn">Logout</button></a>
  
 
@@ -186,5 +185,51 @@
             </div>
         </div>
     </footer>
+    
+    <div id="searchModal" class="modal">
+        <!-- New Forum Modal content -->
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close search-close-button" id="searchCloseButton2">&times; </button>
+                    <h4 class="modal-title">Search</h4>
+                </div>
+                <div class="modal-body">    
+                    <form>
+                        <div class="form-group">
+                            <select class="search-form-domain form-control select2 req_place" id="search-domain">
+                                <option>Select Domain</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <select class="search-form-area form-control select2 req_place" id="search-area">
+                                <option>Select Area</option>                
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <select class="search-form-topic form-control select2 req_place" id="search-topic">
+                                <option>Select Topic</option>                
+                            </select>
+                        </div>
+                        
+                        
+                        <div style="margin-top: 20px; text-align: center;">
+                            <button id="userSearch" type="submit" class="btn" >Search By User</button>
+                            <button id="forumSearch" type="submit" class="btn">Search By Forum</button>
+                        </div>
+                    </form> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default search-close-button" id="searchCloseButton1">Close</button>
+                </div>
+            </div>      
+        </div>
+    </div>
+    <script src="js/campusTalk.js"></script>
+    <script type="text/javascript">
+    javascript:loadHomePage();
+    </script>
 </body>
 </html>
