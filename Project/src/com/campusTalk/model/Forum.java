@@ -11,8 +11,7 @@ public class Forum {
 	
 	public Forum(){};
 	
-	public Forum(int forumId, String description, int createdBy, Date createdDate, int topicId){
-		this.forumId = forumId;
+	public Forum(String description, int createdBy, Date createdDate, int topicId){
 		this.description = description;
 		this.createdBy = createdBy;
 		if(createdDate == null){

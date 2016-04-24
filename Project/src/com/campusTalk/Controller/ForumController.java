@@ -38,7 +38,8 @@ public class ForumController {
 		}
 	}
 	
-	public void createForum(String forumDetails) {
+	public Forum createForum(String forumDetails) {
+		Forum forum = null;
 		try {
 				JSONObject json = new JSONObject(forumDetails);
 				int userId = Integer.parseInt(json.getString("userId"));
@@ -46,11 +47,13 @@ public class ForumController {
 				String forumDescription = json.getString("forumDescription");
 				Date dateCreated = new Date();
 				//System.out.println("Forum Controller createForum - userId, topicId, forumDescription, dateCreated "+userId+" "+topicId+" "+forumDescription+" "+dateCreated);
-				Forum forum = new Forum(1,forumDescription,userId,dateCreated,topicId);
+				forum = new Forum(forumDescription,userId,dateCreated,topicId);
 				dbproxy.saveForumDetails(forum);
+				
 			} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		return forum;
 	}
 	
 	public List<Post> getPostsInForum(String forumIdJSON) {

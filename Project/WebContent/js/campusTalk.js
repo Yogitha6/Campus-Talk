@@ -1,7 +1,5 @@
 //Scripts for the application
 
-var userId = 100; // from session
-var forumId = 5; // from session
 $("#btnSubscribe").hide();
 $("#btnUnsubscribe").hide();
 $("#btnNewPost").hide();
@@ -10,12 +8,26 @@ $("#btnNewPost").hide();
 //Set parameters for loading forum page
 function loadForumPage(){
 
-	var forumTitle = 'How to choose design pattern'; // from session
-	$("#forumTitle").text(forumTitle);
-	var userName = 'Pallavi Madasu'; // from session
-	var noOfDays = 20; // getNoOfDays(createdDate) forum created date from session
-	var forumCreatorInfo = 'Created by '+userName+', '+noOfDays+' days ago';
-	$("#forumCreatorInfo").text(forumCreatorInfo);
+	var forumId = getUrlParameter("id");
+	var userId = Cookies.get("userId");
+	var userName;
+	
+	 $.get("/CampusTalk/rest/CampusTalkAPI/getForum/"+ forumId)
+		.done(function(data){
+			var forumTitle = data.description; // from session
+			$("#forumTitle").text(forumTitle);
+			
+			$.get("/CampusTalk/rest/CampusTalkAPI/getUser/"+ data.createdBy)
+		.done(function(result){
+			userName = result.firstname+" "+result.lastname;
+			var noOfDays = getNoOfDays(data.createdDate);
+			var forumCreatorInfo = 'Created by '+userName+', '+noOfDays+' days ago';
+			$("#forumCreatorInfo").text(forumCreatorInfo);
+				
+		});
+		});
+
+	//Get total count of subscribers for this forum
 	getCountOfSubscribers(forumId,0,function(result){
 		var noOfSubscribers = result.countOfSubscribers;
 		//console.log('noOfSubscribers - '+noOfSubscribers);
@@ -40,7 +52,7 @@ function loadForumPage(){
 	});
 
 	// Load posts and replies dynamically
-	loadPostsAndReplies();
+	loadPostsAndReplies(forumId);
 
 	//Get the new post modal
 	var modal = document.getElementById('newPostModal');
@@ -235,9 +247,8 @@ function searchModal(){
 };
 
 //Load posts and replies dynamically
-function loadPostsAndReplies(){
-	var forumId = 1;
-	getPostsAndReplies(1,function(result){
+function loadPostsAndReplies(forumId){
+	getPostsAndReplies(forumId,function(result){
 		if(result != null){
 			var noOfPosts = result.length; 			
 			//console.log('noOfPosts - '+noOfPosts);
@@ -319,7 +330,7 @@ function createForum()
 	if(topicId == null || topicId == 0){
 		alert('Please select a topic !!');
 	}
-	alert('userId-'+userId+' topicId-'+topicId+' topic value-'+ $("#selectTopic :selected").text()+' forumDescription-'+forumDescription);
+	//alert('userId-'+userId+' topicId-'+topicId+' topic value-'+ $("#selectTopic :selected").text()+' forumDescription-'+forumDescription);
 	if(userId != null && topicId != null && forumDescription != null)
 	{
 		$.ajax({
@@ -330,7 +341,9 @@ function createForum()
 			data: JSON.stringify({userId: userId, topicId: topicId, forumDescription: forumDescription}),
 		}).done(function(data){
 			//console.log("user Id, topic Id and forumDescription sent to server");
+			debugger;
 			$("#newForumModal").css("display","none");
+			window.location = "forumPage.html?id="+data;
 		});
 	}
 }
@@ -382,6 +395,8 @@ function subscribe()
 //Create Post
 function createPost()
 {			
+	var forumId = getUrlParameter("id");
+	var userId = Cookies.get("userId");
 	var postDescription = $("#postDescription").val();
 	if(postDescription == null || postDescription.trim() == ""){
 		alert('Please describe post !!');
@@ -405,6 +420,7 @@ function createPost()
 //Create Reply
 function createReply(postId,index)
 {		
+	var userId = Cookies.get("userId");
 	var replyDescription = $("#newReply"+index).val();
 	if(replyDescription == null || replyDescription.trim() == ""){
 		alert('Please reply !!');
@@ -457,7 +473,7 @@ function getCountOfSubscribers(forumId,userId,callback){
 function getNoOfDays(createdDate){
 	startDate = new Date(createdDate);
 	todaysDate = new Date();
-	var days = Math.round((todaysDate - startDate) / (1000 * 60 * 60 * 24));
+	var days = Math.floor((todaysDate - startDate) / (1000 * 60 * 60 * 24));
 	return days;
 }
 

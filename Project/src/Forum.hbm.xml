@@ -6,7 +6,7 @@
  <hibernate-mapping>
  	<class name="com.campusTalk.model.Forum" table="forum">
  	<id name="forumId" column="forumId" type="int">
- 		<generator class="native"/>
+ 		<generator class="identity"/>
  	</id>
  	<property name="description" column="description" type="string"></property>
  	<property name="createdBy" column="createdBy" type="int"></property>

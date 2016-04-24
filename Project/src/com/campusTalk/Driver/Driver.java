@@ -11,7 +11,7 @@ public class Driver {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		Forum forum = new Forum(1,"Pallavi",100,null,75);
+		Forum forum = new Forum("Pallavi",100,null,75);
 		//dbproxy.saveForumDetails(forum);
 		Post post = new Post(1,"Pallavi Test",102,new Date(),5);
 		//dbproxy.savePostDetails(post);

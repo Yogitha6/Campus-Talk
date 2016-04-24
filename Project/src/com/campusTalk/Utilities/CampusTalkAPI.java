@@ -102,7 +102,7 @@ public class CampusTalkAPI{
 	@POST
 	@Path("createForum")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void createForum(InputStream input)
+	public Response createForum(InputStream input)
 	{
 		StringBuilder strBuilder = new StringBuilder();		
 		ForumController forumController = new ForumController();
@@ -116,7 +116,8 @@ public class CampusTalkAPI{
 			e.printStackTrace();
 		}
 		//System.out.println("Data Received: " + strBuilder.toString());
-		forumController.createForum(strBuilder.toString());	
+		Forum forum = forumController.createForum(strBuilder.toString());
+		return Response.ok( Integer.toString(forum.getForumId()) ).build();
 	}
 	
 	@POST
