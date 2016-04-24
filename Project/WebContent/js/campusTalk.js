@@ -581,6 +581,7 @@ function loadHomePage(url)
   getUserNameforHomePage(id, function(result){
 	  $("#userName").text(result.firstname+" "+result.lastname);
   });
+  
   getHomePageForumContents(id, function(result){
 	  //get the data and set the div contents
 	  console.log(result[0]); 
@@ -589,9 +590,15 @@ function loadHomePage(url)
 		  {
 		  var url = "forumPage.html";
 		  url = url+"?id="+result[i].forumId;
-		  $("#ForumPosts").append('<center><div class=\"col-lg-12 text-center\">')
-		  		.append('<h4> Forum Name </h4>')
-		  		.append('<small>'+result[i].createdDate+'</small>')
+		  var forumName = "forumName";
+		  $("#ForumPosts").append('<center><div class=\"col-lg-12 text-center\">');
+		  getforumNameById(result[i].forumId, function(data)
+				  {
+			    forumName = data;
+			  	console.log(forumName);
+			  	$("#ForumPosts").append('<h4>'+forumName+'</h4>');
+				  });
+		  $("#ForumPosts").append('<small>'+result[i].createdDate+'</small>')
 		  		.append('<p>'+result[i].description+'</p>')
 		  		.append('<a href="'+url+'" class="btn btn-default btn-sm">Read More</a><hr></div></center>');
 		  }
@@ -624,6 +631,16 @@ function loadHomePage(url)
 		  	.append('</div></center>');
 		  }
   });
+}
+
+function getforumNameById(id, callback)
+{
+	var forumId = id;
+	$.get("/CampusTalk/rest/CampusTalkAPI/getForum/"+ forumId)
+	.done(function(data){
+		console.log(data);
+		callback(data.description);
+	});
 }
 function getUserNameforHomePage(id, callback)
 {
