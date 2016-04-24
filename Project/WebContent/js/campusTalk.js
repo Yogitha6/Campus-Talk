@@ -618,9 +618,9 @@ function loadHomePage()
 	  $.each(result, function(index, val){
 		  var url = "forumPage.html";
 		  url = url+"?id="+val.forumId;
-		  var forumName = "forumName";
+		  var forumName = "";
 		  $("#ForumPosts").append('<center><div class=\"col-lg-12 text-center\">');
-		  $("#ForumPosts").append('<h4 class="'+val.forumId+'">'+forumName+'</h4>');
+		  $("#ForumPosts").append('<h4 class="'+val.forumId+' "style="font-weight: bold" >'+forumName+'</h4>');
 		  var forumId = val.forumId;
 		  $.get("/CampusTalk/rest/CampusTalkAPI/getForum/"+ forumId)
 			.done(function(data){
