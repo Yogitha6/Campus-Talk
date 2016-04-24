@@ -114,7 +114,7 @@ public class DbHelper implements DbProxyInterface {
 		List<Post> postArr = new ArrayList<Post>();
 		try{
 			tx = session.beginTransaction();
-			Query query = session.createQuery("from Post where forumId = :forumId");
+			Query query = session.createQuery("from Post where forumId = :forumId order by createdDate desc");
 			query.setParameter("forumId", forumId);
 			postArr = query.list();
 		}catch(HibernateException e){
@@ -156,7 +156,7 @@ public class DbHelper implements DbProxyInterface {
 		List<Reply> replyArr = new ArrayList<Reply>();
 		try{
 			tx = session.beginTransaction();
-			Query query = session.createQuery("from Reply where postId = :postId");
+			Query query = session.createQuery("from Reply where postId = :postId order by createdDate desc");
 			query.setParameter("postId", postId);
 			replyArr = query.list();
 /*			for(Reply reply : replyArr){
@@ -289,7 +289,7 @@ public class DbHelper implements DbProxyInterface {
 		
 		try{
 			tx = session.beginTransaction();
-			Query query = session.createQuery("from Post where forumId = :forumId");
+			Query query = session.createQuery("from Post where forumId = :forumId order by createdDate desc");
 			query.setParameter("forumId", forumId);
 			postArr = query.list();
 			System.out.println("No of posts.."+postArr.size());
