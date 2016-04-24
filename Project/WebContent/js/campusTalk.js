@@ -571,8 +571,13 @@ function signup(){
 
 //redirect to profile page
 function profileLink(){
-    debugger;
     window.location = 'profilePage.html?id=' + Cookies.get("userId");
+};
+
+//redirect to profile page
+function logoutLink(){
+    Cookies.remove("userId");
+	window.location = 'landingPage.html';
 };
 
 //get Home Page
@@ -580,6 +585,10 @@ function loadHomePage()
 {
   var id = Cookies.get("userId")
   console.log(id);
+  if(!id)
+	  {
+	  	window.location = "landingPage.html";
+	  }
   getUserNameforHomePage(id, function(result){
 	  $("#userName").text(result.firstname+" "+result.lastname);
   });

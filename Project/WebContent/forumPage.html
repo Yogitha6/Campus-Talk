@@ -36,6 +36,13 @@
 
 </head>
 <body onload=loadForumPage()>
+<script type="text/javascript">
+	var id = Cookies.get("userId")
+    if(!id)
+	  {
+	  	window.location = "landingPage.html";
+	  }
+	</script>
 	<div class="brand">Campus Talk</div>
 	<div class="address-bar">Focus on Collaboration instead of
 		Competition</div>
@@ -44,7 +51,7 @@
     <a id="homePageref" href="HomePage.html"><button type="submit" class="btn">Home</button></a>
     <button type="submit" class="btn" id="searchBtn">Search</button>
     <button type="submit" class="btn" onclick='profileLink();'>Profile</button>
-    <a href="landingPage.html"><button type="submit" class="btn">Logout</button></a>
+    <button type="submit" class="btn" onclick='logoutLink();'>Logout</button>
 	
 	<div class="top-content">
 		<div class="inner-bg">
