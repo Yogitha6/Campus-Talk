@@ -38,22 +38,28 @@
 
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"> </script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"> </script>
+        <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.1/js.cookie.min.js"></script>
     <script src="js/campusTalk.js"></script>
 </head>
 
 <body>
 	<script type="text/javascript">
-	javascript:loadHomePage(window.location.href);
+	javascript:loadHomePage();
 	</script>
     <div class="brand">Campus Talk</div>
     <div class="address-bar">Focus on Collaboration instead of Competition</div>
 
     <!-- Top content -->
 
-    <a id="homePageref" href="HomePage.html"><button type="submit" class="btn">Home</button></a>
-    <a id="searchPageref" href="resultPage.html"><button type="submit" class="btn">Search</button></a>
-    <a id="profilePageref" href="profilePage.html"><button type="submit" class="btn" onclick='profileLink();'>Profile</button></a>
+    <a href="HomePage.html"><button type="submit" class="btn">Home</button></a>
+    <a href="resultPage.html"><button type="submit" class="btn">Search</button></a>
+    <a href="profilePage.html"><button type="submit" class="btn" onclick='profileLink();'>Profile</button></a>
     <a href="landingPage.html"><button type="submit" class="btn">Logout</button></a>
  
 
@@ -180,21 +186,5 @@
             </div>
         </div>
     </footer>
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-	<script>
-	$(document).ready(function(){
-		var url = window.location.href; 
-		var id = url.substr(url.length-1,1);
-	  	$("#homePageref").attr("href", "HomePage.html?id="+id);
-	  	$("#searchPageref").attr("href","resultPage.html?id="+id);
-	  	$("#profilePageref").attr("href","profilePage.html?id="+id);
-	}
-	);
-	</script>
 </body>
 </html>

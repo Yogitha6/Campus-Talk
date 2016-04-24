@@ -325,6 +325,17 @@ public class CampusTalkAPI{
 	}
 	
 	@GET
+	@Path("getForum/{param}")
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public Response getForum(@PathParam("param") String forumId)
+	{
+		ForumController forumcontroller = new ForumController();
+		Forum forum = forumcontroller.getForum(Integer.parseInt(forumId));
+		String forumobject = new Gson().toJson(forum);
+		return Response.ok(forumobject).build();
+	}
+	
+	@GET
 	@Path("getDomain")
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response getDomain()

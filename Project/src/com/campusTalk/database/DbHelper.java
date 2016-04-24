@@ -605,5 +605,26 @@ public class DbHelper implements DbProxyInterface {
 			session.close();
 		}	
 		return userArr;
+	}
+
+	public Forum getForumById(int forumId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		Forum forum = new Forum();
+		try{
+			tx = session.beginTransaction();
+			forum = (Forum)session.get(Forum.class, forumId); 
+			//System.out.println("First Name - "+user.getFirstname());
+			//System.out.println("Last Name - "+user.getLastname());
+		}catch(HibernateException e){
+			if(tx != null){
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}finally {
+			session.close();
+		}	
+		return forum;
 	}	
 }

@@ -156,4 +156,9 @@ public class DbProxy implements DbProxyInterface {
 		// TODO Auto-generated method stub
 		return this.dbhelper.getUserSearchResults(topicId);
 	}
+
+	public Forum getForumbyId(int forumId) {
+		// TODO Auto-generated method stub
+		return this.dbhelper.getForumById(forumId);
+	}
 }

@@ -303,7 +303,7 @@ function login()
 		}).done(function(data){
 			//console.log("login credentials have been sent for authorization");
 			Cookies.set('userId', data);
-            window.location = 'HomePage.html?id=' + data;
+            window.location = 'HomePage.html';
 		});
 	}
 }
@@ -576,10 +576,9 @@ function profileLink(){
 };
 
 //get Home Page
-function loadHomePage(url)
+function loadHomePage()
 {
-  console.log(url);
-  var id = getUrlParameter('id');;
+  var id = Cookies.get("userId")
   console.log(id);
   getUserNameforHomePage(id, function(result){
 	  $("#userName").text(result.firstname+" "+result.lastname);
@@ -589,25 +588,26 @@ function loadHomePage(url)
 	  //get the data and set the div contents
 	  console.log(result[0]); 
 	  var noOfForumPosts = result.length;
-	  for(var i = 0; i<noOfForumPosts; i++)
-		  {
+	  $.each(result, function(index, val){
 		  var url = "forumPage.html";
-		  url = url+"?id="+result[i].forumId;
+		  url = url+"?id="+val.forumId;
 		  var forumName = "forumName";
 		  $("#ForumPosts").append('<center><div class=\"col-lg-12 text-center\">');
-		  getforumNameById(result[i].forumId, function(data)
-				  {
-			    forumName = data;
-			  	console.log(forumName);
-			  	$("#ForumPosts").append('<h4>'+forumName+'</h4>');
-				  });
-		  $("#ForumPosts").append('<small>'+result[i].createdDate+'</small>')
-		  		.append('<p>'+result[i].description+'</p>')
+		  $("#ForumPosts").append('<h4 class="'+val.forumId+'">'+forumName+'</h4>');
+		  var forumId = val.forumId;
+		  $.get("/CampusTalk/rest/CampusTalkAPI/getForum/"+ forumId)
+			.done(function(data){
+				forumName = data.description;
+			  	console.log(forumName, forumId);
+			  	$("."+forumId).text(forumName);
+			});
+		  $("#ForumPosts").append('<small>'+val.createdDate+'</small>')
+		  		.append('<p>'+val.description+'</p>')
 		  		.append('<a href="'+url+'" class="btn btn-default btn-sm">Read More</a><hr></div></center>');
-		  }
-  }
-
-  );
+			});
+				
+			});
+  
   getHomePageEventConents(id, function(result){
 	  //get the even data and set the div contents
 	  console.log(result[0]);

@@ -142,5 +142,10 @@ public class ForumController {
 		}
 		return forumArr;
 	}
+
+	public Forum getForum(int forumId) {
+		// TODO Auto-generated method stub
+		return dbproxy.getForumbyId(forumId);
+	}
 	
 }
