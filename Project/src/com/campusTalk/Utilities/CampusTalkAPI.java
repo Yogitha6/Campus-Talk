@@ -388,4 +388,17 @@ public class CampusTalkAPI{
 		String forums = new Gson().toJson(forumArr);
         return Response.ok(forums).build();
 	}
+	
+	@GET
+	@Path("getSearchUsers/{param}")
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public Response getSearchUsers(@PathParam("param") String topicId)
+	{
+		List<User> userArr = new ArrayList<User>();
+		UserController userController = new UserController();
+		userArr = userController.getsearchResults(Integer.parseInt(topicId));
+		//System.out.println("No of topics = "+topicArr.size());
+		String forums = new Gson().toJson(userArr);
+        return Response.ok(forums).build();
+	}
 }

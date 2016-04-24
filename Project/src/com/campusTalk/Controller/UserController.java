@@ -86,4 +86,8 @@ public class UserController {
 	public List<Topic> getUserInterests(int userId) {
 		return dbproxy.getUserInterests(userId);
 	}
+
+	public List<User> getsearchResults(int topicId) {
+		return dbproxy.getUserSearchResults(topicId);
+	}
 }
