@@ -297,11 +297,11 @@ function login()
 	//validating username and password
 	if(username.match(emailRegExp)==null)
 	{
-		alert("You can Login only with your colorado.edu email Id");
+		$("#form-username").notify("You can Login only with your colorado.edu email Id");
 	}
 	else if(password.match(passwordRegExp)==null)
 	{
-		alert("Invalid password");
+		$("#form-password").notify("Invalid password");
 	}
 	else
 	{
