@@ -3,103 +3,92 @@
 
 <head>
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Campus Talk - Web Application - CSCI 5448</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<!-- CSS -->
-<link rel="stylesheet"
-    href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet"
-    href="assets/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="assets/css/form-elements.css">
-<link rel="stylesheet" href="assets/css/campusTalk.css">
-<link href="css/business-casual.css" rel="stylesheet">
+    <title>Home - Campus Talk</title>
 
-<!-- Favicon and touch icons -->
-<link rel="shortcut icon" href="assets/ico/favicon.png">
-<link rel="apple-touch-icon-precomposed" sizes="144x144"
-    href="assets/ico/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114"
-    href="assets/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72"
-    href="assets/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed"
-    href="assets/ico/apple-touch-icon-57-precomposed.png">
+    <!-- CSS -->
+    <link rel="stylesheet"
+        href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/form-elements.css">
+    <link rel="stylesheet" href="assets/css/campusTalk.css">
+    <link href="css/business-casual.css" rel="stylesheet">
+        
+        <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+        href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+        href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+        href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed"
+        href="assets/ico/apple-touch-icon-57-precomposed.png">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"> </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.1/js.cookie.min.js"></script>
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 
-
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"> </script>
+        <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.1/js.cookie.min.js"></script>
+    
 </head>
+
 <body>
-<script type="text/javascript">
-	var id = Cookies.get("userId")
+    <script type="text/javascript">
+    var id = Cookies.get("userId")
     if(!id)
-	  {
-	  	window.location = "landingPage.html";
-	  }
-	</script>
+      {
+        window.location = "landingPage.html";
+      }
+    </script>
     <div class="brand">Campus Talk</div>
-    <div class="address-bar">Focus on Collaboration instead of
-        Competition</div>
+    <div class="address-bar">Focus on Collaboration instead of Competition</div>
+
     <!-- Top content -->
 
-    <button type="submit" class="btn">Home</button>
-    <button type="submit" class="btn">Search</button>
+    <a href="HomePage.html"><button type="submit" class="btn">Home</button></a>
+    <button type="submit" class="btn" id="searchBtn" >Search</button>
     <button type="submit" class="btn" onclick='profileLink();'>Profile</button>
     <button type="submit" class="btn" onclick='logoutLink();'>Logout</button>
-    
-    <div class="top-content">
-        <div class="inner-bg">
-            <div class="container">
-                <!-- Portfolio Item Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header" style="color:white;" id="fullName">
-                        </h1>
-                        <button type="submit" class="btn" style="float:right;" id="editBtn">Edit</button>
-                    </div>
-                </div>
-                <!-- /.row -->
-        
-                <!-- Portfolio Item Row -->
-                <div class="row">
-        
-                    <div class="col-md-8">
-                        <img class="img-responsive" src="img/User_icon-cp.png" alt="">
-                    </div>
-        
-                    <div class="col-md-4">
-                        <h3 style="color:white;">E-Mail</h3>
-                        <p style="color:white;" id="emailtext"></p>
-                        <h3 style="color:white;">Major</h3>
-                        <p style="color:white;" id="major"> </p>
-                        <h3 style="color:white;"> Interests </h3>
-                        <ul class="list-unstyled" id="interests" >
-                            
-                        </ul>
-                        <!-- <h3 style="color:white;"> Blogs Subscribed To </h3>
-                        <ul>
-                            <li style="color:white;">Lorem Ipsum</li>
-                            <li>Dolor Sit Amet</li>
-                            <li>Consectetur</li>
-                            <li>Adipiscing Elit</li>
-                        </ul> -->
-                        
-                    </div>
-        
-                </div>
-            </div>
-        </div>
+ 
+
+ <div class="top-content">
+   <div class="inner-bg">
+    <div class="container">
+        <div class="row">
+            <div class="box col-lg-12">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                    <hr>
+                    <h2 class="intro-text text-center"><strong><p id="criteria">Search Criteria</p>
+                    </strong></h2>
+                    <hr>
+                
+                <div id="ForumPosts"></div>
+                
+            
+          
+
+
     </div>
-
-    
-
-    
-    <!-- Footer -->
+    <!-- /.container -->
+</div></div></div></div></div>
     <footer>
         <div class="container">
             <div class="row">
@@ -109,17 +98,51 @@
             </div>
         </div>
     </footer>
-
-    <!-- Javascript -->
-    <script src="assets/js/jquery-1.11.1.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery.backstretch.min.js"></script>
-    <script src="assets/js/scripts.js"></script>
+    
+    <div id="searchModal" class="modal">
+        <!-- New Forum Modal content -->
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close search-close-button" id="searchCloseButton2">&times; </button>
+                    <h4 class="modal-title">Search</h4>
+                </div>
+                <div class="modal-body">    
+                    <form>
+                        <div class="form-group">
+                            <select class="search-form-domain form-control select2 req_place" id="search-domain">
+                                <option>Select Domain</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <select class="search-form-area form-control select2 req_place" id="search-area">
+                                <option>Select Area</option>                
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <select class="search-form-topic form-control select2 req_place" id="search-topic">
+                                <option>Select Topic</option>                
+                            </select>
+                        </div>
+                        
+                        
+                        <div style="margin-top: 20px; text-align: center;">
+                            <button id="userSearch" type="submit" class="btn" >Search By User</button>
+                            <button id="forumSearch" type="submit" class="btn">Search By Forum</button>
+                        </div>
+                    </form> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default search-close-button" id="searchCloseButton1">Close</button>
+                </div>
+            </div>      
+        </div>
+    </div>
     <script src="js/campusTalk.js"></script>
-    <script>
-            $(document).ready( initializeResultPage );
+    <script type="text/javascript">
+    javascript:initializeResultPage();
     </script>
-        
-
 </body>
 </html>

@@ -790,17 +790,36 @@ function initializeResultPage(){
     
     if (criteria && topicId){
         if ( criteria == "forum" ){
+            $("#criteria").text("Forums");
             $.get( "/CampusTalk/rest/CampusTalkAPI/getSearchForums/" + topicId )
             .done(function( data ) {
-                alert(data);
+                for(item in data)
+                {
+                    var url = "forumPage.html";
+                    url = url+"?id="+data[item].forumId;
+                    $("#ForumPosts").append('<center><div class="text-center col-lg-12">')
+                    .append('<h4><a style="color:black;" href="'+url+'" >'+ data[item].description+'</a></h4>').append('<br/>')
+                    .append('</div></center>');
+                }
             });
         }
         if ( criteria == "user" ){
+            $("#criteria").text("Users");
             $.get( "/CampusTalk/rest/CampusTalkAPI/getSearchUsers/" + topicId )
             .done(function( data ) {
-                alert(data);
+                for(item in data)
+                {
+                    var username = data[item].firstname + " " + data[item].lastname;
+                    var url = "profilePage.html";
+                    url = url+"?id="+data[item].userId;
+                    $("#ForumPosts").append('<center><div class="text-center col-lg-12">')
+                    .append('<h4><a style="color:black;" href="'+url+'" >'+ username +'</a></h4>').append('<br/>')
+                    .append('</div></center>');
+                }
             });
         }
     }
+    searchModal();
     
 }
+
