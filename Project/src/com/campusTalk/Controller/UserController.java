@@ -9,6 +9,7 @@ import com.campusTalk.database.DbProxy;
 import com.campusTalk.model.Topic;
 import com.campusTalk.model.User;
 import com.campusTalk.model.UserTopic;
+import com.campusTalk.Utilities.*;
 
 public class UserController {
 	
@@ -26,13 +27,16 @@ public class UserController {
 			JSONObject json = new JSONObject(userCredentials);
 			String username = json.getString("name");
 			String password = json.getString("pwd");
+			Hashing hash = new Hashing( password );
+			String hashedPassword = hash.getHash(); 
 			//System.out.println("name and password "+username+" "+password);
 			User user = dbproxy.getUser(username);
 			String actualPassword = user.getPassword();
 			System.out.println("Actual Password is "+actualPassword);
+			System.out.println("Actual Password is "+hashedPassword);
 				if(!password.equals(""))
 				{
-					if(actualPassword.equals(password))
+					if(actualPassword.equals(hashedPassword))
 					{
 						statusCode = 200;
 						userId = user.getUserId();
@@ -53,6 +57,7 @@ public class UserController {
 	public int createUser(String userDetails) {
 		int userId = 0;
 		try {
+				
 				JSONObject json = new JSONObject(userDetails);
 				String firstName = json.getString("firstName");
 				String lastName = json.getString("lastName");
@@ -62,7 +67,8 @@ public class UserController {
 				String topics = json.getString("topics");
 				topics = topics.substring(1, topics.length() - 1);
 				//System.out.println("Forum Controller createForum - userId, topicId, forumDescription, dateCreated "+userId+" "+topicId+" "+forumDescription+" "+dateCreated);
-				User user = new User(firstName, lastName, emailId, password, major);
+				Hashing hash = new Hashing( password );
+				User user = new User(firstName, lastName, emailId, hash.getHash(), major);
 				dbproxy.saveUserDetails(user);
 				if (topics.length() > 2){
 					for (String topic: topics.split(",")){
