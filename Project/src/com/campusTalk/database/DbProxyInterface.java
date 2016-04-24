@@ -23,4 +23,5 @@ public interface DbProxyInterface {
 	public void saveUserTopic(UserTopic userTopic);
 	public List<Forum> getForumsOfaUser(int userId);
 	public List<Event> getEventDetails(int userId);
+	public User getUser(String username);
 }

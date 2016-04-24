@@ -21,18 +21,21 @@ public class UserController {
 	public int authenticate(String userCredentials) {
 		int statusCode = 401;
 		System.out.println(userCredentials);
+		int userId=0;
 		try {
 			JSONObject json = new JSONObject(userCredentials);
 			String username = json.getString("name");
 			String password = json.getString("pwd");
 			//System.out.println("name and password "+username+" "+password);
-			String actualPassword = dbproxy.getPassword(username);
-			//System.out.println("Actual Password is "+actualPassword);
+			User user = dbproxy.getUser(username);
+			String actualPassword = user.getPassword();
+			System.out.println("Actual Password is "+actualPassword);
 				if(!password.equals(""))
 				{
 					if(actualPassword.equals(password))
 					{
 						statusCode = 200;
+						userId = user.getUserId();
 					}
 					else
 					{
@@ -44,8 +47,7 @@ public class UserController {
 			} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
-		return statusCode;
+		return userId;
 	}
 	
 	public int createUser(String userDetails) {

@@ -301,7 +301,8 @@ function login()
 			data: JSON.stringify({name: username, pwd: password}),
 		}).done(function(data){
 			//console.log("login credentials have been sent for authorization");
-			window.location = 'HomePage.html';
+			Cookies.set('userId', data);
+            window.location = 'HomePage.html?id=' + data;
 		});
 	}
 }
@@ -573,23 +574,52 @@ function profileLink(){
 };
 
 //get Home Page
-function loadHomePage(id)
-{			
+function loadHomePage(url)
+{
+  console.log(url);
+  var id = url.substr(url.length-1,1);
   getHomePageForumContents(id, function(result){
 	  //get the data and set the div contents
-	  console.log(result[0]);
-	  
+	  console.log(result[0]); 
+	  var noOfForumPosts = result.length;
+	  for(var i = 0; i<noOfForumPosts; i++)
+		  {
+		  var url = "forumPage.html";
+		  url = url+"?id="+result[i].forumId;
+		  $("#ForumPosts").append('<center><div class=\"col-lg-12 text-center\">')
+		  		.append('<h4> Forum Name </h4>')
+		  		.append('<small>'+result[i].createdDate+'</small>')
+		  		.append('<p>'+result[i].description+'</p>')
+		  		.append('<a href="'+url+'" class="btn btn-default btn-sm">Read More</a><hr></div></center>');
+		  }
   }
 
   );
   getHomePageEventConents(id, function(result){
 	  //get the even data and set the div contents
 	  console.log(result[0]);
+	  var noOfEvents = result.length;
+	  for(var i = 0; i<noOfEvents; i++)
+		  {
+		  $("#Events").append('<center><div class="text-center col-lg-12">')
+		  	.append(result[i].eventName+'<br/><small>'+result[i].eventStartDate+'---'+result[i].eventEndDate+'</small><br/>')
+		  	.append('<a href="'+result[i].eventLink+'">Read More</a>')
+		  	.append('<hr></div></center>');
+		  }	
   }
   );
   getHomePageForumMemberships(id, function(result){
 	  //get the person forum memberships and set the div contents
 	  console.log(result[0]);
+	  var noOfForums = result.length;
+	  for(var i = 0; i<noOfForums; i++)
+		  {
+		  var url = "forumPage.html";
+		  url = url+"?id="+result[i].forumId;
+		  $("#Forums").append('<center><div class="text-center col-lg-12">')
+		  	.append('<a href="'+url+'" >'+ result[i].description+'</a>').append('<br/><br/>')
+		  	.append('</div></center>');
+		  }
   });
 }
 
@@ -606,6 +636,7 @@ function getHomePageForumContents(id, callback)
 			data: JSON.stringify({userId: userId}),
 			success: function(data){
 				console.log("Getting the Home Page Posts from Forums");
+				//console.log(data);
 				callback(data);
 			}
 		});
@@ -624,7 +655,7 @@ function getHomePageEventConents(id, callback)
 			contentType: "application/json",
 			data: JSON.stringify({userId: userId}),
 			success: function(data){
-				console.log("Getting the Home Page Posts from Forums");
+				console.log("Getting the Home Page Events");
 				callback(data);
 			}
 		});
@@ -643,12 +674,12 @@ function getHomePageForumMemberships(id, callback)
 			contentType: "application/json",
 			data: JSON.stringify({userId: userId}),
 			success: function(data){
-				console.log("Getting the Home Page Posts from Forums");
+				console.log("Getting the Home Page Forum Memberships");
 				callback(data);
 			}
 		});
 		}
-}
+	}
 
 function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),

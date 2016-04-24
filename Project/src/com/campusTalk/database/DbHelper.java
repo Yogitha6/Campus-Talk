@@ -255,30 +255,6 @@ public class DbHelper implements DbProxyInterface {
 		return countOfSubscribers;
 	}
 	
-	public String getUserPassword(String emailId) {
-		// TODO Auto-generated method stub
-		String password = "";
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		try{
-			tx = session.beginTransaction();
-			Query query = session.createQuery("from User where emailId = :emailId");
-			query.setString("emailId", emailId);
-			User user = (User) query.uniqueResult();
-			password = user.getPassword();
-			//System.out.println("password from DB is "+password);
-		}catch(HibernateException e){
-			if(tx != null){
-				tx.rollback();
-				e.printStackTrace();
-			}
-		}finally {
-			session.close();
-		}	
-		
-		return password;
-	}
-	
 	@SuppressWarnings("unchecked")
 	public List<PostAndReply> getPostsAndReplies(int forumId) {
 		// TODO Auto-generated method stub
@@ -319,7 +295,6 @@ public class DbHelper implements DbProxyInterface {
 	}
 
 	@Override
-	// to be deleted
 	public User getUser(int userId) {
 		// TODO Auto-generated method stub
 		System.out.println("DbHelper->getUser...");
@@ -331,6 +306,28 @@ public class DbHelper implements DbProxyInterface {
 			user = (User)session.get(User.class, userId); 
 			//System.out.println("First Name - "+user.getFirstname());
 			//System.out.println("Last Name - "+user.getLastname());
+		}catch(HibernateException e){
+			if(tx != null){
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}finally {
+			session.close();
+		}	
+		return user;
+	}
+	
+	public User getUser(String username) {
+		// TODO Auto-generated method stub
+		System.out.println("DbHelper->getUser...");
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		User user = new User();
+		try{
+			tx = session.beginTransaction();
+			Query query = session.createQuery("from User where emailId = :emailId");
+			query.setString("emailId", username);
+			user = (User) query.uniqueResult();
 		}catch(HibernateException e){
 			if(tx != null){
 				tx.rollback();

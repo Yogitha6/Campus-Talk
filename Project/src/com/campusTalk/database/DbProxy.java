@@ -78,12 +78,6 @@ public class DbProxy implements DbProxyInterface {
 		this.dbhelper.saveEventDetails(event);
 	}
 
-	public String getPassword(String emailId) {
-		// TODO Auto-generated method stub
-		String password =  this.dbhelper.getUserPassword(emailId);
-		return password;
-	}
-	
 	@Override
 	public List<PostAndReply> getPostsAndReplies(int forumId) {
 		return this.dbhelper.getPostsAndReplies(forumId);
@@ -95,6 +89,12 @@ public class DbProxy implements DbProxyInterface {
 		return this.dbhelper.getUser(userId);
 	}
 
+	@Override
+	public User getUser(String username) {
+		// TODO Auto-generated method stub
+		return this.dbhelper.getUser(username);
+	}
+	
 	@Override
 	public List<Topic> getTopics() {
 		// TODO Auto-generated method stub

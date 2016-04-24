@@ -49,11 +49,14 @@ public class CampusTalkAPI{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// System.out.println("Data Received: " + strBuilder.toString());
-		// code to validate the credentials by checking DB entries
-		int statusCode = uc.authenticate(strBuilder.toString());
+		int userId = uc.authenticate(strBuilder.toString());
 		//System.out.println(statusCode);
-		return Response.status(statusCode).build();	
+		if(userId!=0)
+		{
+		 return Response.ok(Integer.toString(userId)).build();
+		}
+		else
+			return Response.status(401).build();
 	}
 	
 	@POST
