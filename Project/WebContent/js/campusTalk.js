@@ -95,6 +95,17 @@ function loadForumPage(){
 	
 }
 
+//setup invite modal
+function inviteModal(){
+	var inviteModal = document.getElementById('inviteModal');
+	var inviteBtn = document.getElementById('inviteBtn');
+	inviteBtn.onclick = function(event){
+		event.preventDefault();
+		inviteModal.style.display = "block";
+	}
+}
+
+
 //setup search modal
 function searchModal(){
     var searchModal = document.getElementById('searchModal');
@@ -319,6 +330,32 @@ function login()
 	}
 }
 
+
+function sendEmail()
+{			
+	var username = new String(document.getElementById("email").value); // $("#id").val()
+	var emailRegExp =/^([a-zA-Z0-9._`-])+@colorado.edu$/;
+	//validating username and password
+	if(username.match(emailRegExp)==null)
+	{
+		$("#email").notify("You can Invite only your colorado.edu friends");
+	}
+	else
+	{
+		$.ajax({
+			url : "/CampusTalk/rest/CampusTalkAPI/sendEmail",
+			datatype:'json',
+			type: "post",
+			contentType: "application/json",
+			data: JSON.stringify({name: username, }),
+		}).done(function(data){
+			//console.log("login credentials have been sent for authorization");
+			var inviteModal = document.getElementById('inviteModal');
+			$("#inviteModal").css("display","none");
+		});
+	}
+}
+
 //Create forum
 function createForum()
 {   var userId = Cookies.get('userId');
@@ -421,7 +458,6 @@ function createPost()
 function createReply(postId,index)
 {	
 	var replyDescription = $("#newReply"+index).val();
-	alert('replyDescription - '+replyDescription);
 	if(replyDescription == null || replyDescription.trim() == ""){
 		alert('Please reply !!');
 	} else {
@@ -592,7 +628,7 @@ function profileLink(){
     window.location = 'profilePage.html?id=' + Cookies.get("userId");
 };
 
-//redirect to profile page
+//redirect to landingpage after clearning cookies
 function logoutLink(){
     Cookies.remove("userId");
 	window.location = 'landingPage.html';
@@ -664,6 +700,9 @@ function loadHomePage()
   
 //setup search modal
   searchModal();
+  
+//setup invite modal
+  inviteModal();
 }
 
 function getforumNameById(id, callback)
@@ -821,7 +860,5 @@ function initializeResultPage(){
             });
         }
     }
-    searchModal();
-    
+    searchModal();   
 }
-

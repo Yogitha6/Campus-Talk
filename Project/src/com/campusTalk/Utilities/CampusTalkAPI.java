@@ -33,6 +33,7 @@ public class CampusTalkAPI{
 		return Response.status(200).build();
 	}
 	
+	
 	@POST
 	@Path("login")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -58,7 +59,29 @@ public class CampusTalkAPI{
 		else
 			return Response.status(401).build();
 	}
+
 	
+	@POST
+	@Path("sendEmail")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response sendEmail(InputStream input)
+	{
+		StringBuilder strBuilder = new StringBuilder();
+		Email email = new Email();
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(input));
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				strBuilder.append(line);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		int statusCode = email.sendEmail(strBuilder.toString());
+		//System.out.println(statusCode);
+			return Response.status(statusCode).build();
+	}
+
 	@POST
 	@Path("unsubscribe")
 	@Consumes(MediaType.APPLICATION_JSON)

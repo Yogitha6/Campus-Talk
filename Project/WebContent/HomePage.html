@@ -46,6 +46,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.1/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"> </script>
     
 </head>
 
@@ -66,6 +67,7 @@
     <button type="submit" class="btn" id="searchBtn" >Search</button>
     <button type="submit" class="btn" onclick='profileLink();'>Profile</button>
     <button type="submit" class="btn" onclick='logoutLink();'>Logout</button>
+    <button type="submit" class="btn" id="inviteBtn">Invite</button>
  
 
  <div class="top-content">
@@ -232,6 +234,18 @@
             </div>      
         </div>
     </div>
+    
+    <div id="inviteModal" class="modal">
+		<!-- Invite Modal content -->
+		<div class="modal-content">
+			<label class="inviteEmail">Invite User</label>
+			<textarea name='emailID' id="email" cols="40" rows="3"
+			style="text-align: left; font-weight: 400; color: black;"></textarea><br><br>
+			<div style="margin-top: 20px; text-align: center;">
+				<button name="Send" class="btn" id="sendEmailBtn" onclick=sendEmail()>Send</button>
+			</div>
+		</div>		
+	</div>
     <script src="js/campusTalk.js"></script>
     <script type="text/javascript">
     javascript:loadHomePage();
