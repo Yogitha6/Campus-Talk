@@ -2,7 +2,9 @@ package com.campusTalk.Utilities;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.io.*;
 
 import javax.ws.rs.Consumes;
@@ -264,7 +266,9 @@ public class CampusTalkAPI{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		long seed = System.nanoTime();
 		postsArray = hc.getHomePageForumPosts(strBuilder.toString());
+		Collections.shuffle(postsArray, new Random());
         String posts = new Gson().toJson(postsArray);
         return Response.ok(posts).build();
 	}
