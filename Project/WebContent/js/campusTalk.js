@@ -276,9 +276,10 @@ function loadPostsAndReplies(forumId){
 				var postId = result[i].post.postId;
 				//console.log('postId - '+ postId + ', noOfReplies -' +noOfReplies +', postCreator - '+creatorName);
 
-				$("#blogs").append($('<div>')
+				$("#blogs").append($('<div style="text-align:left;">')
 						.append('<div class="img1"><img class="img-circle" src="./img/profileIcon.jpg" width="30px" height="30px"/></div>')
 						.append('<div data-toggle="collapse" data-target="#demo'+i+'" class="postText" onclick ="toggle('+i+');" id="postText">'+postDescription+'</div> <img data-toggle="collapse" class ="allreplies" data-target="#demo'+i+'" src="./img/close.png" onclick ="toggle('+i+');" id ="collapse'+i+'" title ="Click to view replies"/>')
+						.append('</br>')
 						.append('<div id="noOfRepliesInfo" data-toggle="collapse" data-target="#demo'+i+'" onclick ="toggle('+i+');" class="noOfRepliesInfo"><a href"#" id ="replyCount'+i+'" title ="Click to view replies">'+replyInfo+'</a></div>')
 						.append('<div id="postCreator" class="postCreator">'+postCreatorInfo+'</div>'))
 						.append('</div>'); 
@@ -286,7 +287,7 @@ function loadPostsAndReplies(forumId){
 				
 				for (var j=0; j < noOfReplies; j++) {
 					var replyDescription = result[i].replies[j].description;					
-					$("#demo"+i).append('<div class ="postCls" id="replies'+i+'">'+replyDescription+'</div>');
+					$("#demo"+i).append('<div style="text-align:left;" class ="postCls" id="replies'+i+'">'+replyDescription+'</div>');
 				
 				}
 
@@ -383,7 +384,10 @@ function createForum()
 
 //Unsubscribe from a forum
 function unsubscribe()
-{			
+{	
+    var forumId = getUrlParameter("id");
+    var userId = Cookies.get("userId");
+    
 	if(userId != null && forumId != null)
 	{
 		$.ajax({
@@ -405,6 +409,9 @@ function unsubscribe()
 //Subscribe to a forum
 function subscribe()
 {	
+    var forumId = getUrlParameter("id");
+    var userId = Cookies.get("userId");
+    
 	if(userId != null && forumId != null)
 	{
 		$.ajax({
@@ -452,6 +459,7 @@ function createPost()
 //Create Reply
 function createReply(postId,index)
 {	
+    var userId = Cookies.get('userId');
 	var replyDescription = $("#newReply"+index).val();
 	if(replyDescription == null || replyDescription.trim() == ""){
 		$("#newReply"+index).notify('Please reply !!');
@@ -467,7 +475,7 @@ function createReply(postId,index)
 				data: JSON.stringify({userId: userId, postId: postId, replyDescription: replyDescription}),
 			}).done(function(data){
 				//console.log("user Id, post Id and replyDescription sent to server");
-				$("#demo"+index).before('<div class ="postCls" style="margin-left:50px" id="replies'+index+'">'+replyDescription+'</div>');
+				$("#demo"+index).before('<div class ="postCls" style="margin-left:50px; text-align: left;" id="replies'+index+'">'+replyDescription+'</div>');
 				$("#replyCount"+index).html($('[id^=replies'+index+']').length+' Reply(s)');	
 				$("#newReply"+index).val("");
 			});
