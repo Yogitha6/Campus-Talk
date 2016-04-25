@@ -443,6 +443,7 @@ function createPost()
 		}).done(function(data){
 			//console.log("user Id, forum Id and postDescription sent to server");
 			$("#newPostModal").css("display","none");
+			location.reload();
 		});
 	}
 

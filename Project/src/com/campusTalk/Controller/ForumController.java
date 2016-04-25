@@ -49,6 +49,8 @@ public class ForumController {
 				//System.out.println("Forum Controller createForum - userId, topicId, forumDescription, dateCreated "+userId+" "+topicId+" "+forumDescription+" "+dateCreated);
 				forum = new Forum(forumDescription,userId,dateCreated,topicId);
 				dbproxy.saveForumDetails(forum);
+				Subscription subscription = new Subscription(userId, forum.getForumId());
+				dbproxy.saveSubscription(subscription);
 				
 			} catch (JSONException e) {
 			e.printStackTrace();
